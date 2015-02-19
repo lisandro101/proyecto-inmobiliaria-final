@@ -1,0 +1,152 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ice="http://www.icesoft.com/icefaces/component"
+      xmlns:ace="http://www.icefaces.org/icefaces/components"
+      >
+    <h:body>
+        <ui:composition template="/WEB-INF/facelets/templates/commonLayout.xhtml">
+            <ui:define name="content">
+                <f:view>
+                    <ice:form>
+                        <ice:panelBorder layout="hide">
+                            <f:facet name="center">
+                                <fieldset>
+                                    <legend>Datos del Cliente</legend> 
+                                    <ice:panelGrid columns="2" cellspacing="15" width="400" style="text-align: left">
+                                        <ice:outputLabel value="Nombre: " for="nombreCliente"/>
+                                        <ice:outputLabel id="nombreCliente" value="#{alquilarInmuebleManagedBean.inquilino.nombre}" />
+
+                                        <ice:outputLabel value="Apellido: " for="apellidoCliente"/>
+                                        <ice:outputLabel id="apellidoCliente" value="#{alquilarInmuebleManagedBean.inquilino.apellido}" />
+
+                                        <ice:outputLabel value="Dni: " for="dniCliente"/>
+                                        <ice:outputLabel id="dniCliente" value="#{alquilarInmuebleManagedBean.inquilino.dni}" />
+
+                                        <ice:outputLabel value="Cuil: " for="cuilCliente"/>
+                                        <ice:outputLabel id="cuilCliente" value="#{alquilarInmuebleManagedBean.inquilino.cuil}" />
+
+                                        <ice:outputLabel value="E-mail: " for="emailCliente"/>
+                                        <ice:outputLabel id="emailCliente" value="#{alquilarInmuebleManagedBean.inquilino.email}" />
+
+                                        <ice:outputLabel value="Teléfono: " for="telefonoCliente"/>
+                                        <ice:outputLabel id="telefonoCliente" value="#{alquilarInmuebleManagedBean.inquilino.telefono}" />
+
+                                        <ice:outputLabel value="Tipo:" for="tipoCliente" />
+                                        <ice:outputLabel id="tipoCliente" value="#{alquilarInmuebleManagedBean.inquilino.tipo}"/>
+
+                                    </ice:panelGrid>    
+                                </fieldset>
+
+                                <br/>
+                                <fieldset>
+
+                                    <legend>Domicilio</legend>
+                                    <ice:panelGrid columns="2" cellspacing="15" width="400" style="text-align: left"> 
+
+                                        <ice:outputLabel value="Provincia:" for="provincia" />
+                                        <ice:outputLabel id="provincia" value="#{alquilarInmuebleManagedBean.inquilino.direccion.provincia.nombreProvincia}"/>
+
+                                        <ice:outputLabel value="Departamento:" for="departamento" />
+                                        <ice:outputLabel id="departamento" value="#{alquilarInmuebleManagedBean.inquilino.direccion.departamento.nombreDepartamento}"/>
+
+                                        <ice:outputLabel value="Localidad:" for="localidad" />
+                                        <ice:outputLabel id="localidad" value="#{alquilarInmuebleManagedBean.inquilino.direccion.localidad.nombreLocalidad}"/>
+
+                                        <ice:outputLabel value="Calle:" for="nombreCalle"/>
+                                        <ice:outputLabel id="nombreCalle" value="#{alquilarInmuebleManagedBean.inquilino.direccion.nombreCalle}" title="Nombre calle" />
+
+                                        <ice:outputLabel value="Número:" for="numero" />
+                                        <ice:outputLabel id="numero" value="#{alquilarInmuebleManagedBean.inquilino.direccion.numero}" title="Número de casa" />
+
+                                        <ice:outputLabel value="Piso:" for="nroPiso" />
+                                        <ice:outputLabel id="nroPiso" value="#{alquilarInmuebleManagedBean.inquilino.direccion.nroPiso}" title="Número de piso" />
+
+                                        <ice:outputLabel value="Nro Departamento:" for="nroDepartamento" />
+                                        <ice:outputLabel id="nroDepartamento" value="#{alquilarInmuebleManagedBean.inquilino.direccion.nroDepartamento}" title="Número de departamento" />
+
+                                        <ice:outputLabel value="Observación:" for="observacion" />
+                                        <ice:outputLabel id="observacion" value="#{alquilarInmuebleManagedBean.inquilino.direccion.observacion}" title="Alguna observación adicional" />
+
+                                    </ice:panelGrid>
+                                </fieldset>
+                            </f:facet>
+                            <f:facet name="south">
+
+                                <!--                                <ice:panelLayout layout="flow"> -->
+                                <ice:panelGrid columns="3" cellspacing="15" >
+                                    <ice:commandButton value="Atrás"
+                                                       action="#{alquilarInmuebleManagedBean.botonAtrasVerDatosCliente()}" 
+                                                       immediate="true" styleClass="commandButton"/> 
+
+                                    <ice:commandButton value="Cancelar"
+                                                       action="#{alquilarInmuebleManagedBean.botonCancelar()}"  styleClass="commandButton"
+                                                       immediate="true"/> 
+
+                                    <ice:commandButton value="Siguiente"
+                                                       action="#{alquilarInmuebleManagedBean.botonSiguienteVerDatosCliente()}"  styleClass="commandButton" /> 
+                                </ice:panelGrid> 
+                                <!--                                </ice:panelLayout>-->
+
+                            </f:facet>
+
+                        </ice:panelBorder>
+
+                        <ice:panelPopup draggable="true" visible="#{alquilarInmuebleManagedBean.mostrarPopupAnalisisCrediticioInvalido}" rendered="#{alquilarInmuebleManagedBean.mostrarPopupAnalisisCrediticioInvalido}" style="z-index: 1000; top: 30%; left: 10%; position: absolute; width: 350px;" modal="true">
+                            <f:facet name="header">
+                                <ice:panelGrid width="350;" cellpadding="0" cellspacing="10" columns="1" style="text-align: center;">
+
+
+                                    <ice:outputLabel styleClass="outputMensaje">
+                                        No existe un analisis créditicio valido para el cliente seleccionado
+                                    </ice:outputLabel>
+
+                                    <ice:commandButton 
+                                        action="#{alquilarInmuebleManagedBean.closePopupAnalisisCredInvalido()}" 
+                                        value="Aceptar"  styleClass="commandButton" /> 
+
+                                </ice:panelGrid>
+                                <!--                            </f:facet>
+                                                            <f:facet name="body">
+                                                                <ice:panelGrid columns="1">-->
+
+                                <!--                                </ice:panelGrid>-->
+                            </f:facet>
+                        </ice:panelPopup>
+
+
+
+                        <ice:panelPopup draggable="true" visible="#{alquilarInmuebleManagedBean.mostrarPopupAnalisisCrediticioDesaprobado}" rendered="#{alquilarInmuebleManagedBean.mostrarPopupAnalisisCrediticioDesaprobado}" style="z-index: 1000; top: 30%; left: 10%; position: absolute; width: 350px;" modal="true">
+                            <f:facet name="header">
+                                <ice:panelGrid width="350;" cellpadding="0" cellspacing="10" columns="1" style="text-align: center;">
+
+                                    <ice:outputLabel styleClass="outputMensaje">
+                                        El último analisis créditicio se encuentra desaprobado
+                                    </ice:outputLabel>
+
+                                    <ice:commandButton 
+                                        action="#{alquilarInmuebleManagedBean.closePopupAnalisisCredDesaprobado()}" 
+                                        value="Aceptar"  styleClass="commandButton" /> 
+
+                                </ice:panelGrid>
+                                <!--                            </f:facet>
+                                                            <f:facet name="body">
+                                                                <ice:panelGrid columns="1">-->
+
+                                <!--                                </ice:panelGrid>-->
+                            </f:facet>
+                        </ice:panelPopup>
+
+
+                        <h:messages globalOnly="true" errorStyle="color: red" infoStyle="color: orange" />
+                    </ice:form>
+                </f:view>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+    <h:outputStylesheet library="org.icefaces.component.skins" name="rime.css" />
+</html>
+

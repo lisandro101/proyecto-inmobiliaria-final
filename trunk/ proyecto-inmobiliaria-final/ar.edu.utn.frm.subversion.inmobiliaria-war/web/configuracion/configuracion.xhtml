@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ice="http://www.icesoft.com/icefaces/component"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+
+        <ui:composition template="/WEB-INF/facelets/templates/commonLayout.xhtml">
+            <ui:define name="content">
+                <f:view>
+                    <ice:form>
+                        <ice:panelBorder layout="hide">
+
+                            <f:facet name="center" >
+                                <legend>Inmueble</legend>
+                                <ice:panelGrid columns="1" cellspacing="15"> 
+                                    
+                                    <ice:commandButton 
+                                        action="#{configuracionManagedBean.irACaracteristicas()}" 
+                                        value="Gestionar Caracteristicas"
+                                        /> 
+                                    <ice:commandButton 
+                                        action="#{configuracionManagedBean.irAServicios()}" 
+                                        value="Gestionar Servicios"
+                                        /> 
+
+                                </ice:panelGrid> 
+                            </f:facet>
+
+                            <f:facet name="south">
+                                <ice:panelGrid columns="2"> 
+   
+                                </ice:panelGrid> 
+                            </f:facet>
+
+                        </ice:panelBorder>
+                        
+                        <h:messages globalOnly="true" errorStyle="color: red" infoStyle="color: orange"/>
+                    </ice:form>
+                </f:view>
+            </ui:define>
+        </ui:composition>
+
+    <h:outputStylesheet library="org.icefaces.component.skins" name="rime.css" />
+</html>
+

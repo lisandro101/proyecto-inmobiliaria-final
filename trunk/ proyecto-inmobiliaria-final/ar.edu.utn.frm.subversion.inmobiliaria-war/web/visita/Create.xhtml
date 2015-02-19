@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+    Document   : Create
+    Created on : 30-jun-2011, 17:00:26
+    Author     : Lisandro
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:icecore="http://www.icefaces.org/icefaces/core"
+      xmlns:ace="http://www.icefaces.org/icefaces/components"
+      xmlns:ice="http://www.icesoft.com/icefaces/component"
+      >
+    <h:body>
+        <ui:composition template="/WEB-INF/facelets/templates/commonLayout.xhtml">
+            <ui:define name="title">
+                <ice:outputText value="#{bundle.CreateVisitaTitle}"></ice:outputText>
+            </ui:define>
+            <ui:define name="content">
+                <f:view>
+                    <ice:panelGroup id="messagePanel" layout="block">
+                        <ice:messages errorStyle="color: red" infoStyle="color: green" layout="table" globalOnly="true"/>                        
+                    </ice:panelGroup>
+                    <ice:form>
+                        <ice:panelGrid columns="2">
+                            <ice:panelGrid columns="2">
+                                <ice:selectInputDate id="fecha" renderMonthAsDropdown="true" renderYearAsDropdown="true"
+                                                     value="#{visitaController.selected.fecha}" title="#{bundle.CreateVisitaTitle_fecha}" partialSubmit="true" readonly="true" >
+                                    <f:convertDateTime pattern="dd/MM/yyyy HH:mm" />
+                                </ice:selectInputDate>
+                                <h:message for="fecha" styleClass="mensajesError" />
+                            </ice:panelGrid>
+                            <ice:panelGrid columns="3">
+                                <ice:outputLabel value="#{bundle.CreateVisitaLabel_nroVisita}" for="nroVisita" />
+                                <ice:inputText id="nroVisita" value="#{visitaController.selected.nroVisita}" title="#{bundle.CreateVisitaTitle_nroVisita}" partialSubmit="true" required="true">
+                                    <f:validator validatorId="intValidator"/>
+                                </ice:inputText>
+                                <h:message for="nroVisita" styleClass="mensajesError" />
+                                <ice:outputLabel value="#{bundle.CreateVisitaLabel_duracion}" for="duracion" />
+                                <ice:inputText id="duracion" value="#{visitaController.selected.duracion}" title="#{bundle.CreateVisitaTitle_duracion}" partialSubmit="true" required="true">
+                                    <f:validateLongRange minimum="1" maximum="1144"/>
+                                </ice:inputText>
+                                <h:message for="duracion" styleClass="mensajesError" />
+                                <ice:outputLabel value="#{bundle.CreateVisitaLabel_empleado}" for="empleado" />
+                                <ice:panelGrid columns="2">
+                                    <ice:inputText  id="empleado" value="#{visitaController.selected.empleado.apellidoNombre}" title="#{bundle.CreateVisitaTitle_empleado}" readonly="true" styleClass="disabledInput" partialSubmit="true"/>
+                                    <ice:commandButton action="#{visitaController.buscarEmpleado}" value="Buscar" immediate="true" />
+                                </ice:panelGrid>
+                                <h:message for="empleado" styleClass="mensajesError" />
+                                <ice:outputLabel value="#{bundle.CreateVisitaLabel_inmueble}" for="inmueble" />
+                                <ice:panelGrid columns="2">
+                                    <ice:inputText  id="inmueble" value="#{visitaController.selected.inmueble.direccion.direccionCorta}" title="#{bundle.CreateVisitaTitle_inmueble}" readonly="true" styleClass="disabledInput" partialSubmit="true"/>
+                                    <ice:commandButton action="#{visitaController.buscarInmueble}" value="Buscar" immediate="true" />
+                                </ice:panelGrid>
+                                <h:message for="inmueble" styleClass="mensajesError" />
+                                <ice:outputLabel value="#{bundle.CreateVisitaLabel_contacto}" for="cliente" />
+                                <ice:panelGrid columns="2">
+                                    <ice:inputText  id="cliente" value="#{visitaController.selected.cliente.apellidoNombre}" title="#{bundle.CreateVisitaTitle_contacto}" readonly="true" styleClass="disabledInput" partialSubmit="true"/>
+                                    <ice:commandButton action="#{visitaController.buscarCliente}" value="Buscar" immediate="true" />
+                                </ice:panelGrid>
+                                <h:message for="cliente" styleClass="mensajesError" />
+                            </ice:panelGrid>
+                        </ice:panelGrid>
+                        <br />
+                        <ice:panelGrid columns="3">
+                            <ice:commandButton action="#{visitaController.create}" value="Guardar" styleClass="commandButton"  />
+                            <ice:commandButton action="#{visitaController.prepareList}" value="Cancelar" immediate="true" styleClass="commandButton" />
+                        </ice:panelGrid>
+                    </ice:form>
+                </f:view>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+    <h:outputStylesheet library="org.icefaces.component.skins" name="rime.css" />
+</html>

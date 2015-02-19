@@ -1,0 +1,188 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ice="http://www.icesoft.com/icefaces/component"      >
+
+    <h:body>
+        <ui:composition template="/WEB-INF/facelets/templates/commonLayout.xhtml">
+            <ui:define name="title">
+                <h:outputText value="Crear Analisis Credicio"></h:outputText>
+            </ui:define>
+            <ui:define name="content">
+                <f:view>
+                    <ice:panelGroup id="messagePanel" layout="block">
+                        <ice:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                    </ice:panelGroup>
+                    <ice:form>
+                        <ice:panelBorder layout="hide">
+                            <f:facet name="center" >
+
+
+                                <fieldset>
+                                    <legend>Análisis Crediticio </legend>
+
+                                    <ice:panelGrid columns="3" cellspacing="10">                                        
+
+                                        <ice:outputLabel value="Nombre:" for="nombre" />
+                                        <ice:inputText id="nombre" value="#{analisisCrediticioManagedBean.cliente.nombre}" disabled="true" partialSubmit="true"/>
+                                        <h:message for="nombre" styleClass="mensajesError" />
+
+                                        <ice:outputLabel value="Apellido:" for="apellido" />
+                                        <ice:inputText id="apellido" value="#{analisisCrediticioManagedBean.cliente.apellido}" disabled="true" partialSubmit="true"/>                                            
+                                        <h:message for="apellido" styleClass="mensajesError" />
+
+                                        <ice:outputLabel value="D.N.I.:" for="dni" />
+                                        <ice:inputText id="dni" value="#{analisisCrediticioManagedBean.cliente.dni}" disabled="true" partialSubmit="true"/>                                            
+                                        <h:message for="dni" styleClass="mensajesError" />
+
+                                        <ice:outputLabel value="C.U.I.L.:" for="cuil" />
+                                        <ice:inputText id="cuit" value="#{analisisCrediticioManagedBean.cliente.cuil}" disabled="true" partialSubmit="true"/>                                            
+                                        <h:message for="cuit" styleClass="mensajesError" />
+
+                                        <ice:outputLabel value="Deuda Codeme:" for="deudaCodeme" />
+                                        <ice:inputText id="deudaCodeme" value="#{analisisCrediticioManagedBean.analisis.deudaCodeme}" partialSubmit="true" required="true"> 
+                                            
+                                            <f:validator validatorId="intValidator"/>
+                                        </ice:inputText>
+                                        <h:message for="deudaCodeme" styleClass="mensajesError" />
+
+                                        <ice:outputLabel value="Deuda Veraz:" for="deudaVeraz" />
+                                        <ice:inputText id="deudaVeraz" value="#{analisisCrediticioManagedBean.analisis.deudaVeraz}" partialSubmit="true" required="true"> 
+
+                                            <f:validator validatorId="intValidator"/>
+                                        </ice:inputText>
+                                        <h:message for="deudaVeraz" styleClass="mensajesError" />                                           
+
+                                        <h:outputLabel value="Estado Analisis Crediticio" for="estadoAnalisisCrediticio" />
+                                        <ice:selectOneMenu id="estadoAnalisisCrediticio" 
+                                                           styleClass="comboBox" 
+                                                           value="#{analisisCrediticioManagedBean.analisis.estadoAnalisisCrediticio}" 
+                                                           immediate="true"
+                                                           partialSubmit="true"
+                                                           required="true"
+                                                           >
+                                            <f:validator validatorId="noNullValidator"/>
+                                            <f:selectItems value="#{estadoAnalisisCrediticioManagedBean.estadosPosibles}"/>
+                                        </ice:selectOneMenu>
+                                        <h:message for="estadoAnalisisCrediticio" styleClass="mensajesError" /> 
+
+                                    </ice:panelGrid> 
+
+                                    <br/>
+                                    <ice:commandButton action="#{analisisCrediticioManagedBean.botonBuscarCliente()}" 
+                                                       value="Buscar Cliente" 
+                                                       immediate="true"
+                                                       partialSubmit="true" styleClass="commandButtonChico"/>
+                                </fieldset>
+                                <br/>
+                                <br/>
+
+
+                                <fieldset>
+                                    <legend>Empleos</legend>
+
+                                    <ice:panelGrid columns="1"> 
+                                        <ice:dataTable value="#{analisisCrediticioManagedBean.trabajosFila}" var="item">
+
+                                            <ice:column>
+                                                <ice:rowSelector id="selected"
+                                                                 value="#{item.selected}"
+                                                                 multiple="false"                                                                                             
+                                                                 selectionListener="#{analisisCrediticioManagedBean.rowSelectionListener}"
+                                                                 immediate="false"      
+                                                                 rendered="true"
+                                                                 />
+                                                <f:facet name="header">
+                                                    <h:outputText value="Empleador"/>
+                                                </f:facet>
+                                                <h:outputText value="#{item.trabajo.empleador}"/>
+                                            </ice:column>
+                                            <ice:column >
+                                                <f:facet name="header">
+                                                    <h:outputText value="CUIT"/>
+                                                </f:facet>
+                                                <h:outputText value="#{item.trabajo.cuit}"/>
+                                            </ice:column>
+
+                                            <ice:column >
+                                                <f:facet name="header">
+                                                    <h:outputText value="Puesto"/>
+                                                </f:facet>
+                                                <h:outputText value="#{item.trabajo.puestoLaboral}"/>
+                                            </ice:column>
+                                            <ice:column >
+                                                <f:facet name="header">
+                                                    <h:outputText value="Fecha Ingreso"/>
+                                                </f:facet>
+                                                <h:outputText value="#{item.trabajo.fechaIngreso}">
+                                                    <f:convertDateTime pattern="dd/MM/yyyy hh:mm" />
+                                                </h:outputText>
+                                            </ice:column>                                        
+                                            <ice:column >
+                                                <f:facet name="header">
+                                                    <h:outputText value="Sueldo"/>
+                                                </f:facet>
+                                                <h:outputText value="#{item.trabajo.sueldo}"/>
+                                            </ice:column>   
+                                            <f:facet name="footer">  
+
+                                                <ice:commandButton action="#{analisisCrediticioManagedBean.botonAgregarTrabajo()}" 
+                                                                   value="Agregar" 
+                                                                   immediate="true" styleClass="commandButtonChico"/>    
+                                                <ice:commandButton action="#{analisisCrediticioManagedBean.botonEditarTrabajo()}" 
+                                                                   value="Editar" 
+                                                                   immediate="true" styleClass="commandButtonChico"/>                                    
+                                            </f:facet>  
+                                        </ice:dataTable>
+
+                                    </ice:panelGrid> 
+                                </fieldset>
+
+
+                            </f:facet>
+
+                            <f:facet name="south">
+                                <ice:panelGrid columns="3"> 
+
+                                    <ice:commandButton action="#{analisisCrediticioManagedBean.save()}" 
+                                                       value="Guardar" styleClass="commandButton"/>
+
+                                    <ice:commandButton action="#{analisisCrediticioManagedBean.limpiarPantalla()}" 
+                                                       value="Limpiar" 
+                                                       immediate="true"
+                                                       partialSubmit="true"  styleClass="commandButton" />
+                                </ice:panelGrid> 
+                            </f:facet>
+                        </ice:panelBorder>
+                        <ice:panelPopup draggable="true" visible="#{analisisCrediticioManagedBean.mostrarPopupCliente}" rendered="#{analisisCrediticioManagedBean.mostrarPopupCliente}" style="z-index: 1000; top: 30%; left: 10%; position: absolute; width: 350px;" modal="true">
+                            <f:facet name="header">
+                                <ice:panelGrid width="350;" cellpadding="0" cellspacing="0" columns="3" style="text-align: center;">
+                                    <ice:outputLabel value="DNI Cliente:" for="dni" />
+                                    <ice:inputText id="dniCliente" value="#{analisisCrediticioManagedBean.dniCliente}" title="Número de Documento del Cliente" required="true" partialSubmit="true" />
+                                    <ice:outputLabel value="#{analisisCrediticioManagedBean.validarDNIExistente()}" style="color: #e33b06"/>
+                                </ice:panelGrid>
+                            </f:facet>
+                            <f:facet name="body">
+                                <ice:panelGrid columns="2">
+                                    <ice:commandButton 
+                                        action="#{analisisCrediticioManagedBean.botonAceptarPopupCliente()}" 
+                                        value="Aceptar"
+                                        immediate="true" styleClass="commandButton" /> 
+                                    <ice:commandButton 
+                                        action="#{analisisCrediticioManagedBean.closePopupCliente()}" 
+                                        value="Cancelar"
+                                        immediate="true" styleClass="commandButton" /> 
+                                </ice:panelGrid>
+                            </f:facet>
+                        </ice:panelPopup>
+                        <h:messages globalOnly="true" errorStyle="color: red" infoStyle="color: orange"/>
+                    </ice:form>
+                </f:view>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+    <h:outputStylesheet library="org.icefaces.component.skins" name="rime.css" />
+</html>

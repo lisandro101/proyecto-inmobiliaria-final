@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:icecore="http://www.icefaces.org/icefaces/core"
+      xmlns:ace="http://www.icefaces.org/icefaces/components"
+      xmlns:ice="http://www.icesoft.com/icefaces/component"
+      >
+    <h:body>
+        <ui:composition template="/WEB-INF/facelets/templates/commonLayout.xhtml">
+            <ui:define name="title">
+                <ice:outputText value="#{bundle.ListVisitaTitle}"></ice:outputText>
+            </ui:define>
+            <ui:define name="content">
+                <f:view>
+                    <ice:form styleClass="jsfcrud_list_form">
+                        <ice:panelGroup id="messagePanel" layout="block">
+                            <ice:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                        </ice:panelGroup>
+                        <ice:outputText escape="false" value="No existen visitas cargadas" rendered="#{visitaController.items.size() == 0}"/>
+                        <ice:panelGroup rendered="#{visitaController.items.size() > 0}">
+                            <ice:dataTable value="#{visitaController.items}" var="item" >
+<!--                                <ice:column>
+
+                                    <f:facet name="header">
+                                        <ice:outputText value="#"/>
+                                    </f:facet>
+                                    <ice:outputText value="#{item.visita.idVisita}"/>
+                                </ice:column>-->
+                                <ice:column>
+                                    <ice:rowSelector id="selected"
+                                                     value="#{item.selected}"
+                                                     multiple="false"                                                                                             
+                                                     selectionListener="#{visitaController.rowSelectionListener}"
+                                                     immediate="true" />
+                                    <f:facet name="header">
+                                        <ice:outputText value="Número"/>
+                                    </f:facet>
+                                    <ice:outputText value="#{item.visita.nroVisita}"/>
+                                </ice:column>
+                                <ice:column>
+                                    <f:facet name="header">
+                                        <ice:outputText value="Fecha"/>
+                                    </f:facet>
+                                    <ice:outputText value="#{item.visita.fecha}">
+                                        <f:convertDateTime pattern="MM/dd/yyyy hh:mm" />
+                                    </ice:outputText>
+                                </ice:column>
+                                <ice:column>
+                                    <f:facet name="header">
+                                        <ice:outputText value="Duración"/>
+                                    </f:facet>
+                                    <ice:outputText value="#{item.visita.duracion}"/>
+                                </ice:column>
+                                <ice:column>
+                                    <f:facet name="header">
+                                        <ice:outputText value="Responsable"/>
+                                    </f:facet>
+                                    <ice:outputText value="#{item.visita.empleado.apellidoNombre}"/>
+                                </ice:column>
+                                <ice:column>
+                                    <f:facet name="header">
+                                        <ice:outputText value="Inmueble"/>
+                                    </f:facet>
+                                    <ice:outputText value="#{item.visita.inmueble.direccion.direccionCorta}"/>
+                                </ice:column>
+                                <ice:column>
+                                    <f:facet name="header">
+                                        <ice:outputText value="Estado"/>
+                                    </f:facet>
+                                    <ice:outputText value="#{item.visita.estadoVisita}"/>
+                                </ice:column>
+                            </ice:dataTable>
+                        </ice:panelGroup>
+                        <br />
+                        <ice:panelGrid columns="4" cellspacing="10">
+                            <ice:commandButton action="#{visitaController.prepareCreate}" value="Crear" styleClass="commandButton"/>
+
+                            <ice:commandButton action="#{visitaController.prepareEdit}" value="Editar" styleClass="commandButton"/>
+
+                            <ice:commandButton action="#{visitaController.destroy}" value="Borrar" styleClass="commandButton"/>
+
+                            <ice:commandButton action="#{visitaController.openPopup}" value="Detalles" styleClass="commandButton"/>
+
+                        </ice:panelGrid>
+                        <ice:panelPopup draggable="true" visible="#{visitaController.popupVisible}" rendered="#{visitaController.popupVisible}" style="z-index: 1000; top: 30%; left: 10%; position: absolute; width: 350px;">
+                            <f:facet name="header">
+                                <ice:panelGrid width="350;" cellpadding="0" cellspacing="0" columns="2" style="text-align: center;">
+                                    <ice:outputText value="Detalles"/>                                    
+                                </ice:panelGrid>
+                            </f:facet>
+                            <f:facet name="body">
+                                <ice:panelGrid columns="2">
+                                    <ice:outputText value="#{bundle.ViewVisitaLabel_idVisita}"/>
+                                    <ice:outputText value="#{visitaController.selected.idVisita}" title="#{bundle.ViewVisitaTitle_idVisita}"/>
+                                    <ice:outputText value="#{bundle.ViewVisitaLabel_nroVisita}"/>
+                                    <ice:outputText value="#{visitaController.selected.nroVisita}" title="#{bundle.ViewVisitaTitle_nroVisita}"/>
+                                    <ice:outputText value="#{bundle.ViewVisitaLabel_fecha}"/>
+                                    <ice:outputText value="#{visitaController.selected.fecha}" title="#{bundle.ViewVisitaTitle_fecha}">
+                                        <f:convertDateTime pattern="dd/MM/yyyy hh:mm" />
+                                    </ice:outputText>
+                                    <ice:outputText value="#{bundle.ViewVisitaLabel_duracion}"/>
+                                    <ice:outputText value="#{visitaController.selected.duracion}" title="#{bundle.ViewVisitaTitle_duracion}"/>
+                                    <ice:outputText value="Responsable"/>
+                                    <ice:outputText value="#{visitaController.selected.empleado.apellidoNombre}" title="#{bundle.ViewVisitaTitle_empleado}"/>
+                                    <ice:outputText value="#{bundle.ViewVisitaLabel_inmueble}"/>
+                                    <ice:outputText value="#{visitaController.selected.inmueble.direccion.toString()}" title="#{bundle.ViewVisitaTitle_inmueble}"/>
+                                    <ice:outputText value="Interesado"/>
+                                    <ice:outputText value="#{visitaController.selected.cliente.apellidoNombre}" title="#{bundle.ViewVisitaTitle_contacto}"/>
+                                    <ice:outputText value="#{bundle.ViewVisitaLabel_estadoVisita}"/>
+                                    <ice:outputText value="#{visitaController.selected.estadoVisita}" title="#{bundle.ViewVisitaTitle_estadoVisita}"/>
+                                    <br/>
+                                    <ice:commandButton action="#{visitaController.closePopup}" title="Cerrar" value="Cerrar" styleClass="commandButton"/>
+                                </ice:panelGrid>
+                            </f:facet>
+                        </ice:panelPopup>
+                    </ice:form>
+                </f:view>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+    <h:outputStylesheet library="org.icefaces.component.skins" name="rime.css" />
+</html>

@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ReporteInfoCliente_subInmueble" language="groovy" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="1.4641000000000022"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="cliente_ID" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT
+     cliente.`IDCLIENTE` AS cliente_IDCLIENTE,
+     inmueble.`CODINMUEBLE` AS inmueble_CODINMUEBLE,
+     inmueble.`SUPERFICIECUBIERTA` AS inmueble_SUPERFICIECUBIERTA,
+     inmueble.`SUPERFICIETOTAL` AS inmueble_SUPERFICIETOTAL,
+     inmueble.`DIRECCION_IDDIRECCION` AS inmueble_DIRECCION_IDDIRECCION,
+     tipoinmueble.`NOMBRETIPO` AS tipoinmueble_NOMBRETIPO,
+     direccion.`NOMBRECALLE` AS direccion_NOMBRECALLE,
+     direccion.`NRODEPARTAMENTO` AS direccion_NRODEPARTAMENTO,
+     direccion.`NROPISO` AS direccion_NROPISO,
+     direccion.`NUMERO` AS direccion_NUMERO,
+     direccion.`LOCALIDAD_IDLOCALIDAD` AS direccion_LOCALIDAD_IDLOCALIDAD,
+     direccion.`PROVINCIA_IDPROVINCIA` AS direccion_PROVINCIA_IDPROVINCIA,
+     localidad.`CODIGOPOSTAL` AS localidad_CODIGOPOSTAL,
+     localidad.`NOMBRELOCALIDAD` AS localidad_NOMBRELOCALIDAD,
+     departamento.`NOMBREDEPARTAMENTO` AS departamento_NOMBREDEPARTAMENTO,
+     provincia.`ABREVIATURA` AS provincia_ABREVIATURA,
+     provincia.`NOMBREPROVINCIA` AS provincia_NOMBREPROVINCIA,
+     cliente.`NROCLIENTE` AS cliente_NROCLIENTE
+FROM
+     `inmueble` inmueble INNER JOIN `tipoinmueble` tipoinmueble ON inmueble.`TIPOINMUEBLE_IDTIPOINMUEBLE` = tipoinmueble.`IDTIPOINMUEBLE`
+     INNER JOIN `direccion` direccion ON inmueble.`DIRECCION_IDDIRECCION` = direccion.`IDDIRECCION`
+     INNER JOIN `visita` visita ON inmueble.`IDINMUEBLE` = visita.`INMUEBLE_IDINMUEBLE`
+     INNER JOIN `cliente` cliente ON visita.`CLIENTE_IDCLIENTE` = cliente.`IDCLIENTE`
+     INNER JOIN `localidad` localidad ON direccion.`LOCALIDAD_IDLOCALIDAD` = localidad.`IDLOCALIDAD`
+     INNER JOIN `provincia` provincia ON direccion.`PROVINCIA_IDPROVINCIA` = provincia.`IDPROVINCIA`
+     INNER JOIN `departamento` departamento ON direccion.`DEPARTAMENTO_IDDEPARTAMENTO` = departamento.`IDDEPARTAMENTO`
+where   cliente.`NROCLIENTE`= $P{cliente_ID}
+order by inmueble.`CODINMUEBLE` ASC
+]]>
+	</queryString>
+	<field name="cliente_IDCLIENTE" class="java.lang.String"/>
+	<field name="inmueble_CODINMUEBLE" class="java.lang.String"/>
+	<field name="inmueble_SUPERFICIECUBIERTA" class="java.lang.String"/>
+	<field name="inmueble_SUPERFICIETOTAL" class="java.lang.String"/>
+	<field name="inmueble_DIRECCION_IDDIRECCION" class="java.lang.String"/>
+	<field name="tipoinmueble_NOMBRETIPO" class="java.lang.String"/>
+	<field name="direccion_NOMBRECALLE" class="java.lang.String"/>
+	<field name="direccion_NRODEPARTAMENTO" class="java.lang.String"/>
+	<field name="direccion_NROPISO" class="java.lang.String"/>
+	<field name="direccion_NUMERO" class="java.lang.String"/>
+	<field name="direccion_LOCALIDAD_IDLOCALIDAD" class="java.lang.String"/>
+	<field name="direccion_PROVINCIA_IDPROVINCIA" class="java.lang.String"/>
+	<field name="localidad_CODIGOPOSTAL" class="java.lang.Integer"/>
+	<field name="localidad_NOMBRELOCALIDAD" class="java.lang.String"/>
+	<field name="departamento_NOMBREDEPARTAMENTO" class="java.lang.String"/>
+	<field name="provincia_ABREVIATURA" class="java.lang.String"/>
+	<field name="provincia_NOMBREPROVINCIA" class="java.lang.String"/>
+	<field name="cliente_NROCLIENTE" class="java.lang.String"/>
+	<variable name="inmueble_CODINMUEBLE_1" class="java.lang.Integer" resetType="Page" calculation="Count">
+		<variableExpression><![CDATA[$F{inmueble_CODINMUEBLE}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="24" splitType="Stretch">
+			<textField evaluationTime="Page">
+				<reportElement x="0" y="2" width="551" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA["Se ha acudido a ver un total de " + $V{inmueble_CODINMUEBLE_1} + " inmuebles correspondientes a las visitas anteriores."]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="21" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="55" height="20"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[COD.INM.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="222" y="0" width="44" height="20"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[NRO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="266" y="0" width="99" height="19"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[LOCALIDAD]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="55" y="0" width="79" height="20"/>
+				<textElement/>
+				<text><![CDATA[SUPERFICIE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="134" y="0" width="98" height="20"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[CALLE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="365" y="0" width="85" height="20"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[DEPARTAMENTO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="451" y="0" width="100" height="20"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[PROVINCIA]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="19" width="543" height="1"/>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="-10" y="0" width="65" height="20"/>
+				<textElement textAlignment="Center">
+					<font isBold="true" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{inmueble_CODINMUEBLE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="55" y="0" width="79" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{inmueble_SUPERFICIECUBIERTA}+"mt2/"+$F{inmueble_SUPERFICIETOTAL}+"mt2"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="134" y="0" width="88" height="20"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{direccion_NOMBRECALLE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="222" y="0" width="44" height="20"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{direccion_NUMERO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="266" y="0" width="99" height="20"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{localidad_NOMBRELOCALIDAD}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="365" y="0" width="85" height="20"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{departamento_NOMBREDEPARTAMENTO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="451" y="0" width="100" height="20"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{provincia_NOMBREPROVINCIA}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

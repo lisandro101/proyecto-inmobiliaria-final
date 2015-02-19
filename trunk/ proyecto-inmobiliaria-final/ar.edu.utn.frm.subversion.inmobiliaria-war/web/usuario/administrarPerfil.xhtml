@@ -1,0 +1,65 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!--
+    Document   : administrarPerfil
+    Created on : 11/10/2011, 18:57:38
+    Author     : Dario
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:icecore="http://www.icefaces.org/icefaces/core"
+      xmlns:ace="http://www.icefaces.org/icefaces/components"
+      xmlns:ice="http://www.icesoft.com/icefaces/component"
+      >
+    <h:body>
+        <ui:composition template="/WEB-INF/facelets/templates/commonLayout.xhtml">
+            <ui:define name ="content">
+                <f:view>
+                    <ice:form>
+                        <ice:panelBorder>
+                            <f:facet name="center">
+                                <ice:panelDivider orientation="horizontal" dividerPosition="10" id="center">
+                                    <f:facet name="first">
+                                         <ice:panelGrid columns="2">
+                                             <ice:outputLabel id="nombrePerfil" value="Nombre de Perfil: " /> 
+                                             <ice:selectOneMenu id="perfil" styleClass="comboBox" required="true"
+                                                                validator="#{validador.validate}" valueChangeListener="#{perfil.asignarPerfil}" value="#{perfil.indice}">
+                                                     <f:selectItems value="#{perfil.buscarNombresPerfiles()}"/>                                     
+                                             </ice:selectOneMenu>
+                                         </ice:panelGrid>
+                                     </f:facet>
+                                     <f:facet name="second">
+                                         <ice:panelGrid columns="3">
+                                             <ice:commandButton id="nuevoBoton" value="Nuevo Perfil" action="agregarPermisos.xhtml" immediate="true" styleClass="commandButton"  partialSubmit="true"/>
+                                             <ice:commandButton id="modificarBoton" value="Modificar Perfil" action="#{perfil.editarPerfil}"  styleClass="commandButton"  />
+                                             <ice:commandButton id="borrarPerfil" value="Borrar Perfil" action="#{perfil.borrarPerfil}"  styleClass="commandButton" />
+                                         </ice:panelGrid>
+                                     </f:facet>
+                                </ice:panelDivider>
+                            </f:facet>
+                            <f:facet name="south">
+                                <ice:panelGrid id="south">
+                                    
+                                </ice:panelGrid>
+                            </f:facet>
+                            <f:facet name="west">
+                                <ice:panelGrid styleClass="panelGridBordes"> 
+                                    
+                                </ice:panelGrid>
+                            </f:facet>
+                            <f:facet name="east">
+                                <ice:panelGrid styleClass="panelGridBordes"> 
+                                    
+                                </ice:panelGrid>                     
+                            </f:facet>
+                        </ice:panelBorder>
+                        <h:messages globalOnly="true" errorStyle="color: red" infoStyle="color: orange" />
+                    </ice:form>
+                </f:view>
+           </ui:define>
+        </ui:composition>
+    </h:body>
+        
+</html>

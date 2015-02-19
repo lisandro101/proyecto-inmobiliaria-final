@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reporteCuotasInmueble_subCuotas" language="groovy" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="1.6105100000000014"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="contrato_ID" class="java.lang.String"/>
+	<parameter name="imgCodigoBarra" class="java.io.InputStream"/>
+	<queryString>
+		<![CDATA[SELECT
+     cuota.`IDCUOTA` AS cuota_IDCUOTA,
+     cuota.`FECHAPAGO` AS cuota_FECHAPAGO,
+     cuota.`IMPORTE` AS cuota_IMPORTE,
+     cuota.`INTERES` AS cuota_INTERES,
+     cuota.`NROCUOTA` AS cuota_NROCUOTA,
+     contratoalquiler.`IDCONTRATO` AS contratoalquiler_IDCONTRATO
+FROM
+     `contratoalquiler` contratoalquiler INNER JOIN `contratoalquiler_cuota` contratoalquiler_cuota ON contratoalquiler.`IDCONTRATO` = contratoalquiler_cuota.`ContratoAlquiler_IDCONTRATO`
+     INNER JOIN `cuota` cuota ON contratoalquiler_cuota.`cuotas_IDCUOTA` = cuota.`IDCUOTA`
+where contratoalquiler.`IDCONTRATO`= $P{contrato_ID}
+Order by cuota.`NROCUOTA`]]>
+	</queryString>
+	<field name="cuota_IDCUOTA" class="java.lang.String"/>
+	<field name="cuota_FECHAPAGO" class="java.sql.Date"/>
+	<field name="cuota_IMPORTE" class="java.lang.Double"/>
+	<field name="cuota_INTERES" class="java.lang.Float"/>
+	<field name="cuota_NROCUOTA" class="java.lang.Integer"/>
+	<field name="contratoalquiler_IDCONTRATO" class="java.lang.String"/>
+	<background>
+		<band height="802" splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="26" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="555" height="22"/>
+				<textElement/>
+				<text><![CDATA[A continuación se detallan las cuotas, los montos y las fecha en la que se debe abonar las cuotas.]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="26" splitType="Stretch">
+			<staticText>
+				<reportElement x="17" y="2" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[N° CUOTA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="125" y="2" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[FECHAPAGO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="239" y="2" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[IMPORTE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="434" y="3" width="97" height="20"/>
+				<textElement/>
+				<text><![CDATA[CODIGO]]></text>
+			</staticText>
+			<line>
+				<reportElement x="6" y="22" width="539" height="1"/>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="27" splitType="Stretch">
+			<textField>
+				<reportElement x="17" y="0" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{cuota_NROCUOTA}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="125" y="0" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{cuota_FECHAPAGO}.toLocaleString().substring(0,10)]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="239" y="0" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{cuota_IMPORTE}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="6" y="22" width="539" height="1"/>
+			</line>
+			<image onErrorType="Blank">
+				<reportElement x="434" y="0" width="100" height="20"/>
+				<imageExpression><![CDATA[$P{imgCodigoBarra}]]></imageExpression>
+			</image>
+		</band>
+	</detail>
+</jasperReport>

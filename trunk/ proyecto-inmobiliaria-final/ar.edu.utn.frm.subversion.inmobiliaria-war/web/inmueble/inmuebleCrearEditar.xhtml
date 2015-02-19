@@ -1,0 +1,399 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ice="http://www.icesoft.com/icefaces/component"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      >
+
+    <h:body>
+        <ui:composition template="/WEB-INF/facelets/templates/commonLayout.xhtml">         
+            <ui:define name="title">
+                <ice:outputText value="Inmueble"></ice:outputText>
+            </ui:define>
+            <ui:define name="content">
+                <f:view>
+                    <ice:form>
+                        <ice:panelBorder layout="hide">
+                            <f:facet name="center" >
+
+                                <ice:panelGrid columns="1" >
+
+                                    <h3>Propietarios</h3>
+
+                                    <ice:panelGrid columns="1"> 
+
+                                        <ice:dataTable value="#{inmuebleMB.propietarios}" var="item" >
+
+                                            <ice:column >
+                                                <ice:rowSelector id="selected"
+                                                                 value="#{item.selected}"
+                                                                 multiple="false"                                                                                             
+                                                                 selectionListener="#{inmuebleMB.rowSelectionListenerPropietarios}"
+                                                                 immediate="true"/>
+                                                <f:facet name="header">
+                                                    <h:outputText value="Nro Cliente"/>
+                                                </f:facet>
+                                                <ice:outputText value="#{item.cliente.nroCliente}" /> 
+                                            </ice:column>                                            
+
+                                            <ice:column >
+                                                <f:facet name="header">
+                                                    <h:outputText value="Nombre"/>
+                                                </f:facet>
+                                                <ice:outputText value="#{item.cliente.apellidoNombre}" /> 
+                                            </ice:column>
+
+                                            <ice:column>
+                                                <f:facet name="header">
+                                                    <h:outputText value="D.N.I."/>
+                                                </f:facet>
+                                                <ice:outputText value="#{item.cliente.dni}"/> 
+                                            </ice:column>                                           
+
+                                            <ice:column>
+                                                <f:facet name="header">
+                                                    <h:outputText value="C.U.I.L."/>
+                                                </f:facet>
+                                                <ice:outputText value="#{item.cliente.cuil}"/> 
+                                            </ice:column>
+
+
+                                            <f:facet name="footer">  
+                                                <ice:commandButton action="#{inmuebleMB.botonAgregarPropietario()}" 
+                                                                   value="Buscar"
+                                                                   immediate="true" styleClass="commandButtonChico" />
+
+                                                <ice:commandButton action="#{inmuebleMB.botonQuitarPropietario()}" 
+                                                                   value="Quitar"
+                                                                   immediate="true" styleClass="commandButtonChico" />
+                                            </f:facet>
+
+
+                                        </ice:dataTable>  
+
+                                    </ice:panelGrid>
+
+                                    <br/>
+
+                                    <ice:panelGrid columns="2" cellspacing="15">
+                                        <ice:panelGrid columns="3" cellspacing="15">
+
+                                            <ice:outputLabel value="Código Inmueble:" for="codInmueble" />
+                                            <ice:inputText id="codInmueble" value="#{inmuebleMB.selectedInmueble.codInmueble}" title="Código de identificación del inmueble" partialSubmit="true" required="true" >
+                                                <f:validator validatorId="noNullValidator"/>
+                                            </ice:inputText>
+                                            <h:message for="codInmueble" styleClass="mensajesError" />
+
+                                            <ice:outputLabel value="Fecha Alta:" for="fechaAlta" />                                                       
+                                            <ice:selectInputDate id="fechaAlta" 
+                                                                 value="#{inmuebleMB.selectedInmueble.fechaAlta}" 
+                                                                 title="FechaAlta" renderAsPopup="true" 
+                                                                 validator="#{validador.validate}"
+
+                                                                 > 
+                                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                                            </ice:selectInputDate>
+                                            <h:message for="fechaAlta" styleClass="mensajesError" />
+                                            <!--                                            requiredMessage="Fecha Alta: el texto ingresado no se ha podido reconocer como fecha"-->
+
+                                            <ice:outputLabel value="Superficie Total:" for="superficieTotal" />
+                                            <ice:inputText id="superficieTotal" value="#{inmuebleMB.selectedInmueble.superficieTotal}" title="Superficie Total" partialSubmit="true" required="true"> 
+                                                <f:validator validatorId="noNullValidator"/>
+                                                <f:validator validatorId="intValidator"/>
+                                            </ice:inputText>
+                                            <h:message for="superficieTotal" styleClass="mensajesError" />
+
+                                            <ice:outputLabel value="Superficie Cubierta:" for="superficieCubierta" />
+                                            <ice:inputText id="superficieCubierta" value="#{inmuebleMB.selectedInmueble.superficieCubierta}" title="Superficie Cubierta" partialSubmit="true" required="true">
+                                                <f:validator validatorId="noNullValidator"/>
+                                                <f:validator validatorId="intValidator"/>
+                                            </ice:inputText>
+                                            <h:message for="superficieCubierta" styleClass="mensajesError" />
+
+                                            <ice:outputLabel value="Precio (Pesos Arg):" for="precioPesos" />
+                                            <ice:inputText id="precioPesos" value="#{inmuebleMB.selectedInmueble.precioPesos}" title="PrecioPesos" partialSubmit="true" required="true">
+                                                <f:validator validatorId="intValidator"/>  
+
+                                            </ice:inputText>
+                                            <h:message for="precioPesos" styleClass="mensajesError" />
+
+                                            <ice:outputLabel value="Año Construcción:" for="anioConstruccion" />
+                                            <ice:inputText id="anioConstruccion" value="#{inmuebleMB.selectedInmueble.anioConstruccion}" title="Año Construcción" partialSubmit="true" required="true" >
+                                                <f:validator validatorId="noNullValidator"/>
+                                                <f:validator validatorId="intValidator"/>                                                
+                                            </ice:inputText>
+                                            <h:message for="anioConstruccion" styleClass="mensajesError" showDetail="*" />
+
+                                            <ice:outputLabel value="Nro Plantas:" for="nroPlantas" />
+                                            <ice:inputText id="nroPlantas" value="#{inmuebleMB.selectedInmueble.nroPlantas}" title="Nro Plantas" partialSubmit="true" required="true">
+                                                <f:validator validatorId="noNullValidator"/>
+                                                <f:validator validatorId="intValidator"/> 
+                                            </ice:inputText>
+                                            <h:message for="nroPlantas" styleClass="mensajesError" />
+
+                                            <ice:outputLabel value="Importe Mensualidad:" for="importeMensualidad" />
+                                            <ice:inputText id="importeMensualidad" value="#{inmuebleMB.selectedInmueble.importeMensualidad}" title="Importe Mensualidad" partialSubmit="true"/>
+                                            <h:message for="importeMensualidad" styleClass="mensajesError" />
+
+                                            <h:outputLabel value="Tipo Inmueble:" for="tipoInmueble" />
+                                            <ice:selectOneMenu id="tipoInmueble" 
+                                                               styleClass="comboBox" 
+                                                               value="#{inmuebleMB.selectedInmueble.tipoInmueble}" 
+                                                               partialSubmit="true"
+                                                               immediate="true" 
+
+                                                               required="true"
+                                                               >
+                                                <f:validator validatorId="noNullValidator"/>
+                                                <f:selectItems value="#{tipoInmuebleManagedBean.tiposInmueble}" />
+                                            </ice:selectOneMenu>
+                                            <h:message for="tipoInmueble" styleClass="mensajesError" />
+
+                                            <ice:outputLabel value="Estado Inmueble:" for="estadoInmueble" />
+                                            <ice:selectOneMenu id="estadoInmueble" 
+                                                               styleClass="comboBox"
+                                                               value="#{estadoInmuebleMB.estadoInmueble}"
+                                                               partialSubmit="true"
+                                                               immediate="true"
+
+                                                               required="true"
+                                                               >
+                                                <f:validator validatorId="noNullValidator"/>
+                                                <f:selectItems value="#{estadoInmuebleMB.estadosInmuebleAlta}"/>
+                                            </ice:selectOneMenu>
+                                            <h:message for="estadoInmueble" styleClass="mensajesError" />
+
+                                        </ice:panelGrid>
+                                        <ice:panelGrid columns="3" cellspacing="15">
+
+                                            <ice:outputLabel value="Provincia:" for="provincia" />
+                                            <ice:selectOneMenu id="provincia" 
+                                                               partialSubmit="true"                    
+                                                               immediate="true"
+                                                               value="#{direccionMB.provinciaSelected}"
+                                                               valueChangeListener="#{direccionMB.seleccionoProvincia}"
+                                                               rendered="true"
+
+                                                               styleClass="comboBox"
+                                                               >
+                                                <f:validator validatorId="noNullValidator"/>
+                                                <f:selectItems value="#{direccionMB.provinciasPosibles}" />
+                                            </ice:selectOneMenu>
+                                            <h:message for="provincia" styleClass="mensajesError" />
+
+                                            <ice:outputLabel value="Departamento:" for="departamento" />
+                                            <ice:selectOneMenu id="departamento" 
+                                                               partialSubmit="true" 
+                                                               immediate="true" 
+                                                               value="#{direccionMB.departamentoSelected}" 
+                                                               valueChangeListener="#{direccionMB.seleccionoDepartamento}"    
+                                                               rendered="true"
+
+                                                               styleClass="comboBox"
+                                                               >
+                                                <f:validator validatorId="noNullValidator"/>
+                                                <f:selectItems value="#{direccionMB.departamentosPosibles}" />
+                                            </ice:selectOneMenu>
+                                            <h:message for="departamento" styleClass="mensajesError" />
+
+                                            <ice:outputLabel value="Localidad:" for="localidad" />
+                                            <ice:selectOneMenu id="localidad" 
+                                                               partialSubmit="true"
+                                                               immediate="true"
+                                                               value="#{direccionMB.localidadSelected}" 
+                                                               valueChangeListener="#{direccionMB.seleccionoLocalidad}" 
+                                                               rendered="true"
+
+                                                               styleClass="comboBox"
+                                                               >                                
+                                                <f:validator validatorId="noNullValidator"/>
+                                                <f:selectItems value="#{direccionMB.localidadesPosibles}"/>
+                                            </ice:selectOneMenu>
+                                            <h:message for="localidad" styleClass="mensajesError" />
+
+                                            <ice:outputLabel value="Calle:" for="nombreCalle" />
+                                            <ice:inputText id="nombreCalle" value="#{direccionMB.direccion.nombreCalle}" partialSubmit="true" title="Nombre calle" required="true">
+                                                <f:validator validatorId="noNullValidator"/>
+                                            </ice:inputText>
+                                            <h:message for="nombreCalle" styleClass="mensajesError" />
+
+                                            <ice:outputLabel value="Número:" for="numero" />
+                                            <ice:inputText id="numero" value="#{direccionMB.direccion.numero}" partialSubmit="true" title="Número de casa" required="true">
+                                                <f:validator validatorId="noNullValidator"/>
+                                                <f:validator validatorId="intValidator"/> 
+                                            </ice:inputText>
+                                            <h:message for="numero" styleClass="mensajesError" />
+
+                                            <ice:outputLabel value="Piso:" for="nroPiso" />
+                                            <ice:inputText id="nroPiso" value="#{direccionMB.direccion.nroPiso}" partialSubmit="true" title="Número de piso" />
+                                            <h:message for="nroPiso" styleClass="mensajesError" />
+
+                                            <ice:outputLabel value="Departamento:" for="nroDepartamento" />
+                                            <ice:inputText id="nroDepartamento" value="#{direccionMB.direccion.nroDepartamento}" partialSubmit="true" title="Número de departamento" />
+                                            <h:message for="nroDepartamento" styleClass="mensajesError" />
+
+                                            <ice:outputLabel value="Observación:" for="observacion" />
+                                            <ice:inputText id="observacion" value="#{direccionMB.direccion.observacion}" partialSubmit="true" title="Alguna observación adicional" />
+                                            <h:message for="observacion" styleClass="mensajesError" />
+
+                                        </ice:panelGrid>
+                                    </ice:panelGrid>
+
+
+                                    <h3>Caracteristicas</h3>
+
+                                    <ice:dataTable  value="#{inmuebleMB.detallesCaracteristicasFila}" var="item">
+
+                                        <ice:column>
+                                            <ice:selectBooleanCheckbox value="#{item.selected}" partialSubmit="true" immediate="true" rendered="true"> 
+                                            </ice:selectBooleanCheckbox> 
+                                        </ice:column>
+
+                                        <ice:column>
+                                            <!--                                                                                        <ice:rowSelector id="selected1"
+                                                                                                                                                     
+                                                                                                                                                     multiple="true"                                                                                             
+                                                                                                                                                     selectionListener="#{inmuebleMB.rowSelectionListener }"
+                                                                                                                                                     immediate="true"      
+                                                                                                                                                     rendered="true"
+                                                                                                                                                     />-->
+                                            <f:facet name="header">
+                                                <h:outputText value="Caracteristica"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.detalleCaracteristica.caracteristica.nombre}" />
+                                        </ice:column>
+
+                                        <ice:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Cantidad"/>
+                                            </f:facet>
+                                            <ice:selectOneMenu value="#{item.detalleCaracteristica.cantidad}" partialSubmit="true"> 
+                                                <f:selectItem itemLabel="1" itemValue="1" />
+                                                <f:selectItem itemLabel="2" itemValue="2" />
+                                                <f:selectItem itemLabel="3" itemValue="3" />
+                                                <f:selectItem itemLabel="4" itemValue="4" />
+                                                <f:selectItem itemLabel="5" itemValue="5" />                                                
+                                            </ice:selectOneMenu>
+
+                                        </ice:column>
+
+                                        <ice:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Puntuacion"/>
+                                            </f:facet>
+                                            <ice:selectOneMenu value="#{item.detalleCaracteristica.puntuacion}" partialSubmit="true">
+                                                <f:selectItem itemLabel="Excelente" itemValue="5" />
+                                                <f:selectItem itemLabel="Muy Buena" itemValue="4" />                                       
+                                                <f:selectItem itemLabel="Buena" itemValue="3" />
+                                                <f:selectItem itemLabel="Regular" itemValue="2" />
+                                                <f:selectItem itemLabel="Insuficiente"  itemValue="1"/>
+                                            </ice:selectOneMenu>
+                                        </ice:column>
+
+                                        <ice:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Publicar"/>
+                                            </f:facet>
+                                            <ice:selectBooleanCheckbox value="#{item.detalleCaracteristica.publicar}" partialSubmit="true"> 
+                                            </ice:selectBooleanCheckbox>
+                                        </ice:column>
+
+                                        <f:facet name="footer">  
+                                            <ice:commandButton 
+                                                partialSubmit="true"
+                                                action="#{caracteristicaMB.inmuebleACaracteristica()}" 
+                                                value="Agregar" 
+                                                immediate="true"  styleClass="commandButtonChico"                                         
+                                                />
+                                            <ice:commandButton 
+                                                partialSubmit="true"
+                                                action="#{inmuebleMB.botonEliminarCaracteristica()}" 
+                                                value="Eliminar" 
+                                                immediate="true"  styleClass="commandButtonChico"                                       
+                                                />
+                                        </f:facet>
+
+                                    </ice:dataTable>                               
+
+
+                                    <h3>Servicios</h3>
+
+                                    <ice:dataTable  value="#{inmuebleMB.detallesServiciosFila}" var="item" >                                        
+
+                                        <ice:column>
+                                            <ice:selectBooleanCheckbox value="#{item.selected}" partialSubmit="true"> 
+                                            </ice:selectBooleanCheckbox> 
+                                        </ice:column>
+
+                                        <ice:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Nombre"/>
+                                            </f:facet>
+                                            <ice:outputText value="#{item.detalleServicio.servicio.nombre}"/>
+                                        </ice:column>
+
+                                        <ice:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Observación"/>
+                                            </f:facet>
+                                            <ice:inputText value="#{item.detalleServicio.observacion}" partialSubmit="true"/>
+                                        </ice:column>
+
+                                        <ice:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Publicar"/>
+                                            </f:facet>
+                                            <ice:selectBooleanCheckbox value="#{item.detalleServicio.publicar}" partialSubmit="true"> 
+                                            </ice:selectBooleanCheckbox>
+                                        </ice:column>
+
+                                        <f:facet name="footer">  
+                                            <ice:commandButton 
+                                                partialSubmit="true"
+                                                action="#{servicioMB.inmuebleAServicio()}" 
+                                                value="Agregar" 
+                                                immediate="true"  styleClass="commandButtonChico"                                        
+                                                />
+                                            <ice:commandButton 
+                                                partialSubmit="true"
+                                                action="#{inmuebleMB.botonEliminarServicio()}" 
+                                                value="Eliminar" 
+                                                immediate="true"  styleClass="commandButtonChico"                                       
+                                                />
+                                        </f:facet>
+
+                                    </ice:dataTable>  
+
+
+                                </ice:panelGrid>
+                            </f:facet>
+
+                            <f:facet name="south">
+                                <ice:panelGrid columns="3"> 
+
+                                    <ice:commandButton 
+                                        action="#{inmuebleMB.create}" 
+                                        value="Guardar"  styleClass="commandButton" 
+
+                                        /> 
+                                    <ice:commandButton 
+                                        partialSubmit="true"
+                                        action="#{inmuebleMB.botonLimpiar()}" 
+                                        value="Limpiar"
+                                        immediate="true"  styleClass="commandButton" 
+                                        /> 
+
+                                </ice:panelGrid> 
+                            </f:facet>
+
+                        </ice:panelBorder>
+                        <h:messages globalOnly="true" errorStyle="color: red" infoStyle="color: orange" />
+                    </ice:form>
+                </f:view>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+    <h:outputStylesheet library="org.icefaces.component.skins" name="rime.css" />
+</html>

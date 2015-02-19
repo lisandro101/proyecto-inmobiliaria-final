@@ -1,0 +1,68 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ice="http://www.icesoft.com/icefaces/component"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <ui:composition template="/WEB-INF/facelets/templates/commonLayout.xhtml">
+        <ui:define name="content">
+            <f:view>
+                <ice:form>
+                    <ice:panelGroup id="messagePanel" layout="block">
+                        <ice:messages errorStyle="color: red" infoStyle="color: green" layout="table" globalOnly="true"/>
+                    </ice:panelGroup>
+                    <ice:panelBorder layout="hide">
+                        <f:facet name="center" >
+                            <fieldset>
+                                <legend>Vender Inmueble</legend>
+                                <ice:panelGrid columns="3" cellspacing="30" width="400"> 
+                                    <ice:outputLabel value="DNI Cliente:" for="dni" />
+                                    <ice:inputText id="dniCliente" value="#{venderInmuebleManagedBean.dniCliente}" 
+                                                   title="Número de Documento del Cliente" partialSubmit="true"/>
+                                    <h:message for="dniCliente" styleClass="mensajesError" />
+                                </ice:panelGrid>
+                            </fieldset>
+                        </f:facet>
+                        <f:facet name="south">
+                            <ice:panelGrid columns="2" cellspacing="15" width="400">  
+                                <ice:commandButton 
+                                    action="#{venderInmuebleManagedBean.botonSiguienteIngresarCliente()}" 
+                                    value="Siguiente" styleClass="commandButton" /> 
+                            </ice:panelGrid> 
+                        </f:facet>
+                    </ice:panelBorder>
+<!--                    <ice:panelPopup draggable="true" visible="#{venderInmuebleManagedBean.mostrarPopupCliente}" 
+                                    rendered="#{venderInmuebleManagedBean.mostrarPopupCliente}" 
+                                    style="z-index: 1000; top: 30%; left: 10%; position: absolute; width: 350px;" modal="true">
+                        <f:facet name="header">
+                            <ice:panelGrid width="350;" cellpadding="0" cellspacing="0" columns="1" style="text-align: center;">
+                                <ice:outputLabel styleClass="outputMensaje">
+                                    Cliente ingresado invalido
+                                </ice:outputLabel>
+                                <ice:commandButton 
+                                    action="#{venderInmuebleManagedBean.closePopupCliente}" 
+                                    value="Aceptar" styleClass="commandButton" /> 
+                            </ice:panelGrid>
+                        </f:facet>
+                    </ice:panelPopup>-->
+                    <ice:panelPopup draggable="false" visible="#{venderInmuebleManagedBean.mostrarPopupCliente}" rendered="#{venderInmuebleManagedBean.mostrarPopupCliente}" style="z-index: 1000; top: 30%; left: 10%; position: absolute; width: 350px;" modal="true">
+                        <f:facet name="header">
+                            <ice:panelGrid width="350;" cellpadding="0" cellspacing="0" columns="2" style="text-align: center;">
+                                <ice:outputText value="Cliente ingresado invalido"/>                                    
+                            </ice:panelGrid>
+                        </f:facet>
+                        <f:facet name="body">
+                            <ice:panelGrid width="350;" cellpadding="0" cellspacing="0" columns="2" style="text-align: center;">
+                                <ice:commandButton action="#{venderInmuebleManagedBean.closePopupCliente}" value="Aceptar" styleClass="commandButton" />                                 
+                            </ice:panelGrid>
+                        </f:facet>
+                    </ice:panelPopup>
+                </ice:form>
+            </f:view>
+        </ui:define>
+    </ui:composition>
+    <h:outputStylesheet library="org.icefaces.component.skins" name="rime.css" />
+</html>
+

@@ -1,0 +1,200 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ice="http://www.icesoft.com/icefaces/component"
+      xmlns:ace="http://www.icefaces.org/icefaces/components"
+      >
+    <h:body>
+        <ui:composition template="/WEB-INF/facelets/templates/commonLayout.xhtml">
+            <ui:define name="content">
+                <f:view>
+                    <ice:form>
+                        <ice:panelBorder layout="hide">
+                            <f:facet name="center">
+
+                                <fieldset>
+                                    <legend>Datos del Contrato</legend> 
+                                    <ice:panelGrid columns="3" width="400" cellspacing="15" style="text-align: left">
+
+                                        <ice:outputLabel value="Nro Contrato: " for="nroContrato"/>
+                                        <ice:inputText id="nroContrato" value="#{alquilarInmuebleManagedBean.contratoAlquiler.nroContrato}" partialSubmit="true" required="true">
+                                            <f:validator validatorId="noNullValidator"/>
+                                            <f:validator validatorId="intValidator"/>
+                                        </ice:inputText>
+                                        <h:message for="nroContrato" styleClass="mensajesError" />
+
+
+                                        <ice:outputLabel value="Fecha Inicio:" for="fechaInicio"/>
+                                        <ice:selectInputDate id="fechaInicio" 
+                                                             value="#{alquilarInmuebleManagedBean.contratoAlquiler.fechaInicio}" 
+                                                             renderAsPopup="true" 
+                                                             required="true" 
+                                                             partialSubmit="true"
+                                                             rendered="true"
+                                                             immediate="true"> 
+                                            <f:convertDateTime pattern="dd/MM/yyyy" />
+                                        </ice:selectInputDate>     
+                                        <h:message for="fechaInicio" styleClass="mensajesError" />
+
+                                        <ice:outputLabel value="Fecha Firma:" for="fechaFirma"/>
+                                        <ice:selectInputDate id="fechaFirma" 
+                                                             value="#{alquilarInmuebleManagedBean.contratoAlquiler.fechaFirma}" 
+                                                             renderAsPopup="true" 
+                                                             required="true" 
+                                                             partialSubmit="true"
+                                                             rendered="true"
+                                                             immediate="true">
+
+                                            <f:convertDateTime pattern="dd/MM/yyyy" />
+                                        </ice:selectInputDate>     
+                                        <h:message for="fechaFirma" styleClass="mensajesError" />
+
+                                        <ice:outputLabel value="Duración (meses): " for="duracion"/>
+                                        <ice:inputText id="duracion" value="#{alquilarInmuebleManagedBean.duracionContrato}"  partialSubmit="true" required="true">
+                                            <f:validateLongRange minimum="1" maximum="24"/>
+                                            <f:validator validatorId="intValidator"/>
+                                        </ice:inputText>
+                                        <h:message for="duracion" styleClass="mensajesError" />
+
+                                        <ice:outputLabel value="Cantidad Personas: " for="cantPersonas"/>
+                                        <ice:inputText id="cantPersonas" value="#{alquilarInmuebleManagedBean.contratoAlquiler.cantPersonas}" required="true" partialSubmit="true">
+                                            <f:validator validatorId="noNullValidator"/>
+                                            <f:validator validatorId="intValidator"/>
+                                        </ice:inputText>
+                                        <h:message for="cantPersonas" styleClass="mensajesError" />
+
+                                        <ice:outputLabel value="Día de Cobro: " for="diaDeCobro"/>
+                                        <ice:inputText id="diaDeCobro" value="#{alquilarInmuebleManagedBean.contratoAlquiler.diaDeCobro}" partialSubmit="true">
+                                            <f:validator validatorId="noNullValidator"/>
+                                            <f:validator validatorId="intValidator"/>
+                                        </ice:inputText>
+                                        <h:message for="diaDeCobro" styleClass="mensajesError" />
+
+                                        <ice:outputLabel value="Importe Mensualidad: " for="mensualidad"/>
+                                        <ice:inputText id="mensualidad" value="#{alquilarInmuebleManagedBean.importeMensualidad}" partialSubmit="true" immediate="true" required="true">
+                                            <f:validator validatorId="noNullValidator"/>
+                                            <f:validator validatorId="intValidator"/>
+                                        </ice:inputText>
+                                        <h:message for="mensualidad" styleClass="mensajesError" />                                        
+
+                                        <ice:outputLabel value="Porcentaje Comisión: " for="porcentajePropietario"/>
+                                        <ice:inputText id="porcentajePropietario" value="#{alquilarInmuebleManagedBean.contratoAlquiler.porcentajeComision}"  partialSubmit="true" immediate="true" required="true">
+                                            <f:validator validatorId="noNullValidator"/>
+                                            <f:validator validatorId="intValidator"/>
+                                        </ice:inputText>
+                                        <h:message for="porcentajePropietario" styleClass="mensajesError" />                     
+
+
+
+<!--onchange="submit()" valueChangeListener="#{alquilarInmuebleManagedBean.onPorcentajeChange}"-->
+
+                                    </ice:panelGrid>    
+                                </fieldset>
+                                <br/>
+                                <fieldset>
+                                    <legend>Dirección de Cobro</legend>
+                                    <ice:panelGrid columns="3" width="400" cellspacing="15" style="text-align: left"> 
+
+                                        <ice:outputLabel value="Provincia:" for="provincia" />
+                                        <ice:selectOneMenu id="provincia" 
+                                                           partialSubmit="true"                    
+                                                           immediate="true"
+                                                           value="#{direccionMB.provinciaSelected}"
+                                                           valueChangeListener="#{direccionMB.seleccionoProvincia}"
+                                                           rendered="true"
+                                                           styleClass="comboBox"
+                                                           >
+
+                                            <f:selectItems value="#{direccionMB.provinciasPosibles}" />
+                                        </ice:selectOneMenu>
+                                        <h:message for="provincia" styleClass="mensajesError" /> 
+
+                                        <ice:outputLabel value="Departamento:" for="departamento" />
+                                        <ice:selectOneMenu id="departamento" 
+                                                           partialSubmit="true" 
+                                                           immediate="true" 
+                                                           value="#{direccionMB.departamentoSelected}" 
+                                                           valueChangeListener="#{direccionMB.seleccionoDepartamento}"    
+                                                           rendered="true"
+                                                           styleClass="comboBox"
+                                                           >
+
+                                            <f:selectItems value="#{direccionMB.departamentosPosibles}" />
+                                        </ice:selectOneMenu>
+                                        <h:message for="departamento" styleClass="mensajesError" /> 
+
+                                        <ice:outputLabel value="Localidad:" for="localidad" />
+                                        <ice:selectOneMenu id="localidad" 
+                                                           partialSubmit="true"
+                                                           immediate="true"
+                                                           value="#{direccionMB.localidadSelected}" 
+                                                           valueChangeListener="#{direccionMB.seleccionoLocalidad}" 
+                                                           rendered="true"
+                                                           styleClass="comboBox"
+                                                           >                                
+
+                                            <f:selectItems value="#{direccionMB.localidadesPosibles}"/>
+                                        </ice:selectOneMenu>
+                                        <h:message for="localidad" styleClass="mensajesError" /> 
+
+                                        <h:outputLabel value="Calle:" for="nombreCalle" />
+                                        <ice:inputText id="nombreCalle" value="#{direccionMB.direccion.nombreCalle}" partialSubmit="true" title="Nombre calle" required="true">
+                                            <f:validator validatorId="noNullValidator"/>
+                                        </ice:inputText>
+                                        <h:message for="nombreCalle" styleClass="mensajesError" />
+
+                                        <h:outputLabel value="Número:" for="numero" />
+                                        <ice:inputText id="numero" value="#{direccionMB.direccion.numero}" partialSubmit="true" title="Número de casa" required="true">
+                                            <f:validator validatorId="noNullValidator"/>
+                                            <f:validator validatorId="intValidator"/>
+                                        </ice:inputText>
+                                        <h:message for="numero" styleClass="mensajesError" />
+
+                                        <h:outputLabel value="Piso:" for="nroPiso" />
+                                        <ice:inputText id="nroPiso" value="#{direccionMB.direccion.nroPiso}" partialSubmit="true" title="Número de piso" />
+                                        <h:message for="nroPiso" styleClass="mensajesError" />
+
+                                        <h:outputLabel value="Nro Departamento:" for="nroDepartamento" />
+                                        <ice:inputText id="nroDepartamento" value="#{direccionMB.direccion.nroDepartamento}" partialSubmit="true" title="Número de departamento" />
+                                        <h:message for="nroDepartamento" styleClass="mensajesError" /> 
+
+                                        <h:outputLabel value="Observación:" for="observacion" />
+                                        <ice:inputText id="observacion" value="#{direccionMB.direccion.observacion}" partialSubmit="true" title="Alguna observación adicional" />
+                                        <h:message for="observacion" styleClass="mensajesError" /> 
+
+                                    </ice:panelGrid>
+                                </fieldset>
+                            </f:facet>
+                            <f:facet name="south">
+
+                                <ice:panelGrid columns="3" cellspacing="15"> 
+
+                                    <ice:commandButton value="Atrás"
+                                                       action="#{alquilarInmuebleManagedBean.botonAtrasIngresarDatosContrato()}" 
+                                                       styleClass="commandButton"
+                                                       immediate="true"/> 
+
+                                    <ice:commandButton value="Cancelar" 
+                                                       action="#{alquilarInmuebleManagedBean.botonCancelar()}" 
+                                                       immediate="true" styleClass="commandButton"/> 
+
+                                    <ice:commandButton value="Siguiente" 
+                                                       action="#{alquilarInmuebleManagedBean.botonSiguienteIngresarDatosContrato()}" 
+                                                       styleClass="commandButton"/> 
+                                </ice:panelGrid>
+
+                            </f:facet>
+
+                        </ice:panelBorder>
+                        <h:messages globalOnly="true" errorStyle="color: red" infoStyle="color: orange" />
+                    </ice:form>
+                </f:view>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+    <h:outputStylesheet library="org.icefaces.component.skins" name="rime.css" />
+</html>
+

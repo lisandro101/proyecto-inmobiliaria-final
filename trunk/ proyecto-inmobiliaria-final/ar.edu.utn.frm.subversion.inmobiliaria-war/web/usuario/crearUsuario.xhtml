@@ -1,0 +1,95 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!--
+    Document   : crearUsuario
+    Created on : 10-ago-2011, 17:29:22
+    Author     : Dario
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ice="http://www.icesoft.com/icefaces/component"
+      >
+     <h:body>
+        <ui:composition template="/WEB-INF/facelets/templates/commonLayout.xhtml">
+            <ui:define name="content">
+                <f:view>
+                    <ice:form>
+                        <ice:panelBorder >
+                            <f:facet name="center" >
+                                <fieldset>
+                                    <legend>Datos del Usuario</legend>
+                                    <ice:panelGrid columns="4" > 
+                                        <ice:outputLabel value="Nombre: " for="nombre"/>
+                                        <ice:inputText id="nombre" value="#{usuario.usuario.nombre}" required="true" validator="#{validador.validate}" />
+                                        <ice:outputLabel value="Apellido: " for="apellidoUsuario"/>
+                                        <ice:inputText id="apellidoUsuario" value="#{usuario.usuario.apellido}" required="true" validator="#{validador.validate}"/>
+                                        <br />
+                                        <h:message for="nombre" styleClass="mensajesError"/>
+                                        <br /> 
+                                        <h:message for="apellidoUsuario" styleClass="mensajesError"/>
+                                        <ice:outputLabel value="e-mail: " for="mailUsuario"/>
+                                        <ice:inputText id="mailUsuario" value="#{usuario.usuario.email}" required="true" validator="#{validador.validate}" >
+                                            <f:validateRegex pattern="^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$" for="mailUsuario" />
+                                        </ice:inputText>
+                                        <ice:outputLabel value="Usuario: " for="nombreUsuario"/>
+                                        <ice:inputText id="nombreUsuario" value="#{usuario.usuario.nombreUsuario}" required="true" validator="#{validador.validate}"/>
+                                        <br />
+                                        <h:message for="mailUsuario" styleClass="mensajesError" />
+                                        <br />
+                                        <h:message for="nombreUsuario" styleClass="mensajesError" />
+                                        <ice:outputLabel value="Contraseña: " for="contraseñaUsuario"/>
+                                        <ice:inputSecret id="contraseñaUsuario" value="#{usuario.usuario.contrasenia}" required="true" validator="#{validador.validate}">
+                                            <f:validateLength for="contraseñaUsuario" minimum="6" />
+                                        </ice:inputSecret>
+                                        <ice:outputLabel value="Perfil: " for="perfil"/>
+                                        <ice:selectOneMenu id="perfil" styleClass="comboBox" required="true" 
+                                                           validator="#{validador.validate}" 
+                                                           valueChangeListener="#{perfil.asignarPerfil}" value="#{perfil.indice}">
+                                            <f:selectItems value="#{perfil.buscarNombresPerfiles()}"/>                                     
+                                        </ice:selectOneMenu>
+                                        <br />
+                                        <h:message for="contraseñaUsuario" styleClass="mensajesError"/>
+                                        <br />
+                                        <h:message for="perfil" styleClass="mensajesError" />
+                                        <ice:outputLabel value="Confirme Contraseña: " for="confirmacionContraseña"/>
+                                        <ice:inputSecret id="confirmacionContraseña" value="#{usuario.confirmacionContraseña}" required="true" validator="#{validador.validate}" >
+                                            <f:validateLength minimum="6" for="confirmacionContraseña" />
+                                        </ice:inputSecret>
+                                        <h:message for="confirmacionContraseña" styleClass="mensajesError"/>
+                                    </ice:panelGrid> 
+                                </fieldset>
+                            </f:facet>
+                            <f:facet name="south">
+                                <ice:panelLayout layout="flow" styleClass="panelSur"> 
+                                    <ice:commandButton value="Crear Usuario" action="#{asignacion.realizarAsignacion()}" 
+                                                       panelConfirmation="panelConfirmacion"  styleClass="commandButton"  />
+                                    
+                                    <ice:panelConfirmation id="panelConfirmacion" autoCentre="true"
+                                                           acceptLabel="#{bundle.BotonConfirmar}"
+                                                           cancelLabel="#{bundle.BotonCancelar}"
+                                                           title="#{bundle.TituloGuardarUsuario}"    
+                                                           message="#{bundle.MensajeGuardarUsuario}" draggable="false" />
+                                    <ice:commandButton value="Modificar Usuarios" action="modificarUsuarios.xhtml" immediate="true" styleClass="commandButton"  /> 
+                                </ice:panelLayout>
+                            </f:facet>
+                            
+                            <f:facet name="west" >
+                                <ice:panelGrid styleClass="panelGridBordes"> 
+                                    
+                                </ice:panelGrid> 
+                            </f:facet>     
+                            <f:facet name="east" >
+                                <ice:panelGrid styleClass="panelGridBordes"> 
+                                </ice:panelGrid> 
+                            </f:facet>     
+                        </ice:panelBorder>
+                        <h:messages globalOnly="true" errorStyle="color: red" infoStyle="color: orange" />
+                    </ice:form>
+                </f:view>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+    <h:outputStylesheet library="org.icefaces.component.skins" name="rime.css" />
+</html>
