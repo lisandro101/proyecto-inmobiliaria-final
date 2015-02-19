@@ -1,0 +1,91 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ice="http://www.icesoft.com/icefaces/component"
+      >
+
+    <h:body>
+        <ui:composition template="/WEB-INF/facelets/templates/commonLayout.xhtml">
+            <ui:define name="content">
+                <f:view>
+                    <ice:form>
+                        <ice:panelBorder layout="hide">
+
+                            <f:facet name="center" >
+                                <ice:panelGrid columns="1" > 
+                                    <fieldset>
+                                    <h3>Empleo</h3>
+
+                                    <ice:panelGrid columns="2" >                                        
+
+                                        <ice:panelGrid columns="3" cellspacing="10">    
+                                            
+                                            <ice:outputLabel value="Empleador:" for="empleador" />
+                                            <ice:inputText id="empleador" value="#{trabajoManagedBean.trabajo.empleador}" title="Razon social del empleador" required="true" partialSubmit="true"> 
+                                                <f:validator validatorId="noNullValidator"/>
+                                            </ice:inputText>
+                                            <h:message for="empleador" styleClass="mensajesError" />
+
+                                            <ice:outputLabel value="Cuit:" for="cuit" />
+                                            <ice:inputText id="cuit" value="#{trabajoManagedBean.trabajo.cuit}" title="Cuit del empleador" partialSubmit="true"> 
+                                                <f:validator validatorId="noNullValidator"/>
+                                            </ice:inputText>
+                                            <h:message for="cuit" styleClass="mensajesError" />
+
+                                            <ice:outputLabel value="Puesto:" for="puestoLaboral" />
+                                            <ice:inputText id="puestoLaboral" value="#{trabajoManagedBean.trabajo.puestoLaboral}" title="Cargo dentro de la empresa" partialSubmit="true"> 
+                                                <f:validator validatorId="noNullValidator"/>
+                                            </ice:inputText>
+                                            <h:message for="puestoLaboral" styleClass="mensajesError" />                                       
+
+                                            <ice:outputLabel value="Fecha Ingreso:" for="fechaIngreso" />                    
+                                            <ice:selectInputDate id="fechaIngreso" value="#{trabajoManagedBean.trabajo.fechaIngreso}" 
+                                                                 title="Día del inicio de la relación laboral" renderAsPopup="true" required="true" 
+                                                                 partialSubmit="true"> 
+                                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                                            </ice:selectInputDate>
+                                            <h:message for="fechaIngreso" styleClass="mensajesError" />  
+
+                                            <ice:outputLabel value="Sueldo:" for="sueldo" />
+                                            <ice:inputText id="sueldo" value="#{trabajoManagedBean.trabajo.sueldo}" title="Importe bruto" partialSubmit="true" required="true"> 
+                                                <f:validator validatorId="noNullValidator"/>
+                                                <f:validator validatorId="intValidator"/>
+                                            </ice:inputText>
+                                            <h:message for="sueldo" styleClass="mensajesError" />                                                                                        
+
+<!--                                            <ice:outputLabel value="Fecha Actualización:" for="fechaActualizacion" />
+                                            <ice:inputText id="fechaActualizacion" value="#{trabajoManagedBean.trabajo.fechaActualizacion}" title="Fecha de la última actualización" disabled="true" partialSubmit="true">
+                                                <f:convertDateTime pattern="dd/MM/yyyy HH:mm" />
+                                            </ice:inputText>-->
+                                          </ice:panelGrid>
+                                        <br/>
+<!--                                        <ice:commandButton action="#{trabajoManagedBean.save}" value="Crear"  > 
+                                        </ice:commandButton>-->
+                                    </ice:panelGrid> 
+                                    </fieldset>
+                                </ice:panelGrid> 
+                            </f:facet>
+
+                            <f:facet name="south">
+                                <ice:panelGrid columns="2"> 
+                                    <ice:commandButton action="#{trabajoManagedBean.botonAgregarTrabajoAAnalisisCred}" 
+                                                       value="Aceptar" 
+                                                       immediate="true"
+                                                       partialSubmit="true" styleClass="commandButton" />
+                                    <ice:commandButton action="#{trabajoManagedBean.botonVolverAAnalisisCred()}" 
+                                                       value="Cancelar" 
+                                                       immediate="true" styleClass="commandButton"  />
+                                </ice:panelGrid> 
+                            </f:facet>
+                        </ice:panelBorder>
+                        <h:messages globalOnly="true" errorStyle="color: red" infoStyle="color: orange"/>
+                    </ice:form>
+                </f:view>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+    <h:outputStylesheet library="org.icefaces.component.skins" name="rime.css" />
+</html>

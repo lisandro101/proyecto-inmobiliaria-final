@@ -1,0 +1,311 @@
+/* 
+    Document   : pages-styles
+    Created on : 19/07/2011, 21:29:36
+    Author     : mariodante
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+/* 
+   TODO customize this sample style
+   Syntax recommendation http://www.w3.org/TR/REC-CSS2/
+*/
+*{-moz-box-sizing: border-box; box-sizing: border-box}
+      
+p{ margin-top: 0px; margin-bottom: 1em }
+
+form{ margin: 0px }
+
+input{ padding: 1px }
+
+#content{ vertical-align: top; overflow: auto; background-color: gray; 
+          background: -moz-linear-gradient(top, #999999 , #FFFFFF); width: 100%; 
+          height: 475px; } /* background: url("../imagenes/fondo.png")*/
+
+#page{ width: 100%; height: 100%; margin: 0 auto; }
+
+#leyenda{ color: darkblue; text-transform: uppercase; font-family: Verdana; }
+
+#header{ width: 100%; height: 120px; vertical-align: super; background-color: white;
+        font-family: Verdana, Arial, Sans-Serif; font-weight: bolder; }
+
+#footer{ width: 100%; height: 60px; padding-bottom: 5px;
+        /*background-image: url("../imagenes/fondo.png");*/ }
+
+/*body{ font-family: Arial, Helvetica, sans-serif; font-size: .95em; 
+      color: #000000; background-image: url("../imagenes/fondoTransparente.png"); }*/
+
+body{ font-family: Arial, Helvetica, sans-serif; font-size: .95em;
+   color: #000000; /*background-image: url("../imagenes/fondo.png"); */}
+
+fieldset{ color: #FFFFFF; font-weight: normal; line-height: 30px; padding: 10px; 
+          max-width: 100%; min-width: 400px; -webkit-border-radius: 30px; 
+          -moz-border-radius: 40px; text-align: right; border-style: outset; 
+          border-width: 2px; border-color: #666666; font-size: 14px;
+          font-style: normal; background-color: lightslategray;
+         /*filter: alpha(opacity=25); opacity: .25;*/ }
+
+fieldset legend{ text-align: left; padding-left: 25px; padding-top: 30px; 
+                 font-weight: bolder; font-size: 16px; color: #000000; }
+
+fieldset legend:first-letter{ font-size: 20px; }
+
+h3{ color: #006699; text-align: center; }
+
+/*.bienvenida{ background-color: gray; background: -moz-linear-gradient(top, #666666 , #FFFFFF); width: 100%; height: 100%; }*/
+
+.inputText{ width: 150px; border-color: #666666; border-width: thin; 
+           background-color: white; }
+
+.inputText:focus{ border-color: royalblue; border-width: 2px; background-color: whitesmoke; }
+
+.disabledInput{ background-color: #DEDEDE; }
+
+/* Estilos de Login*/
+
+#tableLogin{ width: 600px; border: 0; cellspacing: 2px; cellpadding: 4px; }
+
+#tableLogin tr{ height: 35px; }
+
+.headerLogin{ width: 100%; height: 190px; vertical-align: super; 
+             background-color: #FFFFFF; }
+
+.contenidoLogin{ background-color: gray; width: 100%; height: 100%; /*450px*/
+                background: -moz-linear-gradient(top, #666666 , #FFFFFF); }
+
+.fondoLogin{ background-image: url("../imagenes/fondoLogin.png"); 
+            background-position: center; background-repeat: no-repeat; 
+            width: 100%; height: 100%; }
+
+form#login{ width: 100%; height: 100%; text-align: center; margin: 0 auto; 
+            padding-top: 30px; }
+
+/* Fin estilos de Login*/
+
+.bodyContenido, .contenidoPagina{ background-color: gray; width: 100%; height: 100%; /*450px*/
+                background: -moz-linear-gradient(top, #666666 , #FFFFFF);
+                /*background-image: url("../imagenes/fondo.png"); width: 1400px;
+                 height: 300px;*/ }
+
+.titleProyecto{ font-family: Gill, Helveltica, sans-serif; font-size: 14px; 
+               font-weight: bolder; }
+
+.nameUsuario{ font-family: cursive; font-size: 12px; font-variant: small-caps; 
+             font-weight: bolder; }
+
+form#menuUsuario{ position: absolute; }
+
+.iceMnuBarVrtItem{ max-width: 180px; background-color: #666666; }
+
+.iceMnuBarVrtItem:hover{ background-color: #999999;}
+
+.iceMnuBarVrtItemLabel{ color: white; text-transform: uppercase; 
+                       font-weight: bolder; text-align: left;}
+
+.iceMnuBarVrtSubMenu{ width: 180px; color: white; 
+                text-align: left ; font-weight: bolder; }
+
+.iceMnuBarVrtSubMenu:hover, .iceMnuBarVrtSubMenu:focus, .iceMnuBarVrtSubMenu:active{ width: 180px; }
+
+.iceCmdLnk{  width: 180px; background-color: darkgray; } 
+
+.iceCmdLnk:hover, .iceCmdLnk:active, .iceCmdLnk:focus{ width: 180px; background-color: darkgrey; }
+
+.pie{ width: 100%; height: 60px; background-image: url("../imagenes/piso.png");
+      background-repeat: no-repeat; background-position: center center;
+      text-align: center; position: relative; /*margin-bottom:10px;*/ }
+
+.textoPie1{ font-family: Gill, Helveltica, sans-serif; font-size: 12px; 
+           font-style: oblique; font-weight: bolder; }
+
+/* Estilos de botones */
+
+.boton{ text-align: center; border-right-style: outset; border-left-style: outset;
+    border-bottom-style: outset; border-top-style: outset;
+    border-right-width: 3px; border-left-width: 3px; border-bottom-width: 3px;
+    border-top-width: 3px; border-right-color: #026AFF; border-left-color: #026AFF;
+    border-bottom-color: #026AFF; border-top-color: #026AFF; background-color: #90b4bd; }
+
+.botonBuscar{ width: 30px; height: 25px; position: relative; padding-top: 2px;
+    vertical-align: bottom; }
+
+.botonSalir{ background-image: url("../imagenes/blue004.jpg"); color: #FFFFFF;
+             font-weight: bolder; line-height: 20px; width: 125px; padding: 7px;
+             -webkit-border-radius: 10px; -moz-border-radius: 10px;
+             text-align: center; border-style: outset; border-width: 2px; 
+             border-color: #666666; font-size: 14px; 
+             font-style: normal; font-weight: bolder; }
+
+.iceCmdBtn, .commandButton{ background-color: dimgrey; color: #FFFFFF; font-weight: bolder; 
+    line-height: 20px; width: 125px; padding: 7px; -webkit-border-radius: 10px; 
+    -moz-border-radius: 10px; border-bottom-left-radius: 29px;
+    border-bottom-right-radius: 27px; }
+
+.commandButtonChico{ background-color: dimgrey; color: #FFFFFF;
+                     font-weight: bolder; line-height: 16px; width: 70px; 
+                     -webkit-border-radius: 10px; -moz-border-radius: 10px; 
+                     height: 30px}
+
+/* Fin estilos de botones */
+
+.cabecera{background-image: url("../imagenes/techo.png"); width: 100%; 
+          height: 100%; background-repeat: no-repeat; border: 0;
+          background-position: center center;  background-color: white;
+          font-size: 14px; font-family: Verdana, Arial,Helvetica,sans-serif;  
+          position: relative; vertical-align: super; padding: 0; margin: 0; }
+
+.centrar{  margin: 0 auto; }
+
+.columnaVer, .columnaCrear, .columnaModificar, .columnaEliminar{ width: 100px;
+    border-right: 1px solid #666666; border-bottom: 1px solid #666666; }
+
+.columnaFuncionalidad{ width: 225px; border-right: 1px solid #666666; 
+                       border-bottom: 1px solid #666666; }
+
+.comboBox { height: 23px; width: 150px; }
+
+.comboResultados{ height: 23px; width: 200px; text-align: center; 
+                 background-color: white; }
+
+.detalles{ font-family: Arial, Helvetica, sans-serif; color: #ffffff;
+    border: 1px; margin-right: 0px; 
+    margin-left: 0px; margin-bottom: 0px; margin-top: 0px;
+    border-right-style: solid; border-left-style: solid;
+    border-bottom-style: solid; border-top-style: solid;
+    border-right-width: 1px; border-left-width: 1px;
+    border-bottom-width: 1px; border-top-width: 1px;
+    border-right-color: #666666; border-left-color: #666666;
+    border-bottom-color: #666666; border-top-color: #666666;
+    background-color: #529189; text-align: center; }
+
+.iceSelInpDateOpenPopup, .iceSelInpDateOpenPopup-dis{
+    background-color: #CCCCFF; background-image: url("../imagenes/cal_button.gif");
+    background-repeat: no-repeat; border: medium none; display:inline-table;
+    height: 16px; text-align: center; text-decoration: none; width: 16px; }
+
+.tablaPermisos,.iceDatTbl{ border: 1px solid #666666; background-color: #90b4bd; }
+
+.filasImpares,.iceDatTblRow1{ background-color: white; color: black; 
+               text-align: center; }
+
+.filasPares, .iceDatTblRow2{ background-color: whitesmoke; color: black;
+               text-align: center; }
+
+.iceDatTblCol1, .iceDatTblCol2{ padding-left: 7px; padding-right: 7px; }
+
+.iceRowSelSelected{ background-color: #666666; color: white; text-align: center; }
+
+.iceMnuBar{ padding: 0px; white-space: nowrap; }
+
+.iceMnuBarItem, .myHomeMenuItem{ float: left; width: 20%; white-space: nowrap;
+ background-color: #666666; height: 25px; vertical-align: middle; color: #FFFFFF; }
+
+.iceMnuBarItem a, .myHomeMenuItem a{/*    background: url("../imagenes/blue004.jpg");*/
+    height: auto; display: block; text-decoration: none; font-weight: bolder;
+    padding-left: 10px; padding-right: 10px; color: #FFFFFF; vertical-align: middle;
+    margin: 0px; float: left; white-space: normal; font-size:  12px; }
+
+.icePnlBrdrCenter{ vertical-align: top; padding-top: 15px; }
+
+.myHomeMenuItem a{ width: 40px; }
+
+.iceMnuBarItem a:hover, myHomeMenuItem a:hover{ background: #999999; 
+       color: #FFFFFF; }
+
+.iceMnuBarItem hr{ border: none 0; border-top: 1px solid #999999; width: 100%;
+    height: 1px; margin-top: 3px; padding: 0px; text-align: left; }
+
+.iceMnuBarSubMenu{ position: absolute; background-color: #CCCCCC;
+    border-top:1px solid #FFF; padding: 1px; height: 25px; 
+    display: block; }
+
+.iceMnuItm{ padding: 0px; display: block; height: auto; width: 175px; background: #666666; }
+
+.iceMnuItm a { color: #FFFFFF; display: block; text-decoration: none;
+    padding-left: 7px; padding-right: 7px; padding-top: 3px;
+    padding-bottom: 3px; /*    font-weight : bold;*/ font-size: 14px; }
+
+.iceMnuItm a:hover, .iceMnuItm a:focus, .iceMnuItm a:active { background-color: #999999; }
+
+.iceMnuItm a:hover .iceOutTxt{ color: #0056EA; font-weight: bolder; }
+
+.iceMnuItmLabel, .iceMnuBarItemLabel{  font-family: Arial, Helvetica, sans-serif;
+    padding-top: 4px; font-size: 1.0em; display: inline; font-size: 12px; }
+
+.iceMnuBarItemImage { width:0px; }
+
+.iceMnuItmImage, .iceMnuBarItemImage {  display: inline; vertical-align: top; }
+
+.iceMnuBarSubMenuInd { display: inline; float: right; padding-top: 3px; 
+                      padding-right: 1px; }
+
+.iceLnk, .iceLnk:hover, .iceLnk:active, .iceLnk:focus{ width: 175px; background-color: purple; }
+
+.icePnlCnf, .icePnlPop{ z-index: 999; top: 400px; left: 400px; width: 400px; 
+                        height: auto; position: fixed; background: #CCCCCC; }
+
+.icePnlCnfHdr, .icePnlPopHdr{ text-align: center; width: 400px; height: 35px; 
+              background: steelblue; font-weight: bolder; vertical-align: middle; }
+
+.icePnlCnfBody, .icePnlPopBody{ padding-top: 15px; padding-bottom: 5px; 
+                                padding-left: 10px; padding-right: 10px; 
+                                width: 400px; min-height: 250px; height: auto;
+                                background: #CCCCCC; text-align: left; }
+
+.icePnlCnfBtns, .icePnlPopBtns{ width: 400px; padding-top: 15px; padding-bottom: 15px; }
+
+panelConfirmacion-accept, panelConfirmacion-cancel{ background-color: dimgrey; color: #FFFFFF;
+                     font-weight: bolder; line-height: 16px; width: 70px; 
+                     -webkit-border-radius: 10px; -moz-border-radius: 10px; 
+                     height: 30px}
+
+.mensajesError{ color: red }
+
+.panelGridBordes, .icePnlBrdrEast, .icePnlBrdrWest{ width: 20%; height: 400px; }
+
+.panelSur{ vertical-align: inherit; text-align: center; position: relative; 
+           padding-top: 15px; padding-bottom: 15px; }
+
+.pie{ width: 100%; height:50px; /*margin-bottom:10px;*/ position: relative; }
+
+.tabla { font-family: Verdana, Arial, Helvetica, sans-serif; font-size:12px;
+    text-align: right; width: 600px; }
+
+.tabla th { padding: 5px; font-size: 16px; background-color: #83aec0;
+    /*background-image: url(fondo_th.png);*/ background-repeat: repeat-x; 
+    color: #FFFFFF; border-right-width: 1px; border-bottom-width: 1px;
+    border-right-style: solid; border-bottom-style: solid;
+    border-right-color: #558FA6; border-bottom-color: #558FA6;
+    font-family: sans-serif, Arial; text-transform: uppercase; }
+
+.outputMensaje{ font-size: 30px; font-weight: normal; text-align: center; 
+               color: yellow; }
+
+.iceSelInpDate{ -moz-border-bottom-colors: none; -moz-border-image: none;
+    -moz-border-left-colors: none; -moz-border-right-colors: none;
+    -moz-border-top-colors: none; background-color: #DEDEDE;
+    border-bottom-color: #0056EA; border-bottom-style: solid;
+    border-bottom-width: 2px; border-left-color-ltr-source: physical;
+    border-left-color-rtl-source: physical; border-left-color-value: #0056EA;
+    border-left-style-ltr-source: physical; border-left-style-rtl-source: physical;
+    border-left-style-value: solid; border-left-width-ltr-source: physical;
+    border-left-width-rtl-source: physical; border-left-width-value: 2px;
+    border-right-color-ltr-source: physical; border-right-color-rtl-source: physical;
+    border-right-color-value: #0056EA; border-right-style-ltr-source: physical;
+    border-right-style-rtl-source: physical; border-right-style-value: solid;
+    border-right-width-ltr-source: physical; border-right-width-rtl-source: physical;
+    border-right-width-value: 2px; border-top-color: #0056EA;
+    border-top-style: solid; border-top-width: 2px; }
+
+.columnsColumn{ border-bottom: 1px solid #CCCCCC; border-left: 1px solid #CCCCCC; 
+               border-right: 1px solid #CCCCCC; width: 50px; }
+
+.columnsColumn, .columnsNestedColumn, .columnsNestedBoldColumn{
+    color: #000000; padding: 5px 10px; text-align: center; white-space: nowrap; }
+
+.iceRowSelMouseOver{ text-align: center; color: #FFF; background-color: #CCCCCC; }
+
+.iceDatTblColHdr1, .iceDatTblColHdr2{ padding: 5px 15px; background-color: #90b4bd; }
+
+.iceRowSelSelectedMouseOver{ text-align: center; color: #FFF; 
+                            background-color: darkslategrey; }

@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ReporteInfoCliente_suVisita" language="groovy" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="1.7715610000000022"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="cliente_ID" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT  visita.`IDVISITA` AS visita_IDVISITA,
+     visita.`DURACION` AS visita_DURACION,
+     visita.`FECHA` AS visita_FECHA,
+     visita.`HORA` AS visita_HORA,
+     visita.`NROVISITA` AS visita_NROVISITA,
+     empleado.`APELLIDO` AS empleado_APELLIDO,
+     empleado.`NOMBRE` AS empleado_NOMBRE,
+     empleado.`DNI` AS empleado_DNI,
+     estadovisita.`ESTADO` AS estadovisita_ESTADO,
+     inmueble.`CODINMUEBLE` AS inmueble_CODINMUEBLE,
+     cliente.`IDCLIENTE` AS cliente_IDCLIENTE,
+     cliente.`NROCLIENTE` AS cliente_NROCLIENTE
+FROM `visita` visita
+     INNER JOIN `inmueble` inmueble ON visita.`INMUEBLE_IDINMUEBLE` = inmueble.`IDINMUEBLE`
+     INNER JOIN `cliente` cliente ON visita.`CLIENTE_IDCLIENTE` = cliente.`IDCLIENTE` 
+     INNER JOIN `empleado` empleado ON visita.`EMPLEADO_IDEMPLEADO` = empleado.`IDEMPLEADO`
+     INNER JOIN `estadovisita` estadovisita ON visita.`ESTADOVISITA_IDESTADOVISITA` = estadovisita.`IDESTADOVISITA`
+     where  cliente.`NROCLIENTE`= $P{cliente_ID}
+order by visita.`NROVISITA`, inmueble.`CODINMUEBLE`]]>
+	</queryString>
+	<field name="visita_IDVISITA" class="java.lang.String"/>
+	<field name="visita_DURACION" class="java.lang.Integer"/>
+	<field name="visita_FECHA" class="java.sql.Date"/>
+	<field name="visita_HORA" class="java.lang.String"/>
+	<field name="visita_NROVISITA" class="java.lang.String"/>
+	<field name="empleado_APELLIDO" class="java.lang.String"/>
+	<field name="empleado_NOMBRE" class="java.lang.String"/>
+	<field name="empleado_DNI" class="java.lang.String"/>
+	<field name="estadovisita_ESTADO" class="java.lang.String"/>
+	<field name="inmueble_CODINMUEBLE" class="java.lang.String"/>
+	<field name="cliente_IDCLIENTE" class="java.lang.String"/>
+	<field name="cliente_NROCLIENTE" class="java.lang.String"/>
+	<variable name="visita_IDVISITA_1" class="java.lang.Integer" resetType="Page" calculation="Count">
+		<variableExpression><![CDATA[$F{visita_IDVISITA}]]></variableExpression>
+	</variable>
+	<variable name="visita_IDVISITA_2" class="java.lang.Integer" resetType="Page" calculation="Count">
+		<variableExpression><![CDATA[$F{visita_IDVISITA}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="43" splitType="Stretch">
+			<textField evaluationTime="Page">
+				<reportElement x="0" y="1" width="555" height="40"/>
+				<textElement/>
+				<textFieldExpression><![CDATA["Seguidamente se especifican las visitas realizadas por el cliente.\r"
++"El cliente ha realizado "+$V{visita_IDVISITA_2} +" visitas.\r"
++"A continuación se detalla las visitas realizadas por el cliente:"]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="17" splitType="Stretch">
+			<staticText>
+				<reportElement x="8" y="0" width="49" height="15"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[N° VISITA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="104" y="0" width="62" height="15"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[FECHA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="166" y="0" width="35" height="15"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[HORA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="201" y="0" width="121" height="15"/>
+				<textElement/>
+				<text><![CDATA[DURACION ESTIMADA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="322" y="0" width="130" height="15"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[EMPLEADO ASIGNADO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="57" y="0" width="47" height="15"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[COD.INM.]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="15" width="555" height="1"/>
+			</line>
+			<staticText>
+				<reportElement x="452" y="0" width="79" height="15"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[ESTADO]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="8" y="0" width="49" height="18"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{visita_NROVISITA}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="104" y="0" width="62" height="18"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{visita_FECHA}.toLocaleString()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="166" y="0" width="35" height="18"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{visita_HORA}+"Hrs."]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="322" y="0" width="130" height="18"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{empleado_NOMBRE}+" " + $F{empleado_APELLIDO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="57" y="0" width="47" height="18"/>
+				<textElement textAlignment="Center">
+					<font isBold="true" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{inmueble_CODINMUEBLE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="202" y="0" width="120" height="18"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{visita_DURACION}+" min."]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="452" y="0" width="79" height="18"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{estadovisita_ESTADO}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

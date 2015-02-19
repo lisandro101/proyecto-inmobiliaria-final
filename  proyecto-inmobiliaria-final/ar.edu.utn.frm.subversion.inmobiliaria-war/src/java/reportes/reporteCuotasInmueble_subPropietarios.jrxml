@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reporteCuotasInmueble_subPropietarios" language="groovy" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="1.6105100000000008"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="contrato_ID" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT      contratoalquiler.`IDCONTRATO` AS contratoalquiler_IDCONTRATO,
+     cliente.`DNI` AS cliente_DNI,
+     cliente.`APELLIDO` AS cliente_APELLIDO,
+     cliente.`NOMBRE` AS cliente_NOMBRE
+FROM `contratoalquiler` contratoalquiler
+	INNER JOIN  `contratoalquiler_propietarios` contratoalquiler_propietarios on contratoalquiler.`IDCONTRATO` = contratoalquiler_propietarios.`propietariosContratoAlquiler_IDCONTRATO`
+	INNER JOIN `cliente` cliente ON contratoalquiler_propietarios.`propietarios_IDCLIENTE` = cliente.`IDCLIENTE`
+where contratoalquiler.`IDCONTRATO`=$P{contrato_ID}
+order by cliente.APELLIDO,cliente.NOMBRE
+]]>
+	</queryString>
+	<field name="contratoalquiler_IDCONTRATO" class="java.lang.String"/>
+	<field name="cliente_DNI" class="java.lang.String"/>
+	<field name="cliente_APELLIDO" class="java.lang.String"/>
+	<field name="cliente_NOMBRE" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="24">
+			<staticText>
+				<reportElement x="0" y="0" width="550" height="20"/>
+				<textElement/>
+				<text><![CDATA[Las personas que se muestran a continuación tienen carácter de PROPIETARIOS del inmueble:]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="22">
+			<staticText>
+				<reportElement x="12" y="1" width="80" height="20"/>
+				<textElement/>
+				<text><![CDATA[DNI]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="105" y="0" width="230" height="20"/>
+				<textElement/>
+				<text><![CDATA[NOMBRE Y APELLIDO]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="22" splitType="Stretch">
+			<textField>
+				<reportElement x="12" y="2" width="80" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{cliente_DNI}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="105" y="2" width="230" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{cliente_NOMBRE} +" "+$F{cliente_APELLIDO}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

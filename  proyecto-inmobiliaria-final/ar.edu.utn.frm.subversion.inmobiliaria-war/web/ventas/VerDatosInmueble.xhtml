@@ -1,0 +1,160 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ice="http://www.icesoft.com/icefaces/component"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      >
+
+    <h:body>
+        <ui:composition template="/WEB-INF/facelets/templates/commonLayout.xhtml">         
+            <ui:define name="title">
+                <ice:outputText value="Inmueble"></ice:outputText>
+            </ui:define>
+            <ui:define name="content">
+                <f:view>
+                    <ice:form>
+                        <ice:panelGroup id="messagePanel" layout="block">
+                            <ice:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                        </ice:panelGroup>
+                        <ice:panelBorder layout="hide">
+                            <f:facet name="center" >
+                                <fieldset>
+                                    <legend>Inmueble</legend>
+                                    <ice:panelGrid columns="1" >
+                                        <ice:panelGrid columns="2" cellspacing="20">
+                                            <ice:panelGrid columns="2" >
+                                                <ice:outputLabel value="Código Inmueble:" for="codInmueble" />
+                                                <ice:outputLabel id="codInmueble" value="#{venderInmuebleManagedBean.contratoVender.inmueble.codInmueble}"/>
+                                                <ice:outputLabel value="FechaAlta:" for="fechaAlta" />                                                       
+                                                <ice:outputLabel id="fechaAlta" value="#{venderInmuebleManagedBean.contratoVender.inmueble.fechaAlta}" > 
+                                                    <f:convertDateTime pattern="dd/MM/yyyy" />
+                                                </ice:outputLabel>
+                                                <ice:outputLabel value="Superficie Total:" for="superficieTotal" />
+                                                <ice:outputLabel id="superficieTotal" value="#{venderInmuebleManagedBean.contratoVender.inmueble.superficieTotal}" />
+                                                <ice:outputLabel value="Superficie Cubierta:" for="superficieCubierta" />
+                                                <ice:outputLabel id="superficieCubierta" value="#{venderInmuebleManagedBean.contratoVender.inmueble.superficieCubierta}" />
+                                                <ice:outputLabel value="Precio (Pesos Arg):" for="precioPesos" />
+                                                <ice:outputLabel id="precioPesos" value="#{venderInmuebleManagedBean.contratoVender.inmueble.precioPesos}"/>
+                                                <ice:outputLabel value="Año Construcción:" for="anioConstruccion" />
+                                                <ice:outputLabel id="anioConstruccion" value="#{venderInmuebleManagedBean.contratoVender.inmueble.anioConstruccion}" />
+                                                <ice:outputLabel value="Nro Plantas:" for="nroPlantas" />
+                                                <ice:outputLabel id="nroPlantas" value="#{venderInmuebleManagedBean.contratoVender.inmueble.nroPlantas}" />
+                                                <ice:outputLabel value="Importe Mensualidad:" for="importeMensualidad" />
+                                                <ice:outputLabel id="importeMensualidad" value="#{venderInmuebleManagedBean.contratoVender.inmueble.importeMensualidad}" />
+                                                <h:outputLabel value="Tipo Inmueble:" for="tipoInmueble" />
+                                                <ice:outputLabel id="tipoInmueble" value="#{venderInmuebleManagedBean.contratoVender.inmueble.tipoInmueble.nombreTipo}" />
+                                                <ice:outputLabel value="Estado Inmueble:" for="estadoInmueble" />
+                                                <ice:outputLabel id="estadoInmueble" value="#{venderInmuebleManagedBean.contratoVender.inmueble.ultimoEstadoInmueble.estado}"/>
+                                            </ice:panelGrid>
+                                            <ice:panelGrid columns="2" >
+                                                <ice:outputLabel value="Provincia:" for="provincia" />
+                                                <ice:outputLabel id="provincia" value="#{venderInmuebleManagedBean.contratoVender.inmueble.direccion.provincia.nombreProvincia}" />
+                                                <ice:outputLabel value="Departamento:" for="departamento" />
+                                                <ice:outputLabel id="departamento" value="#{venderInmuebleManagedBean.contratoVender.inmueble.direccion.departamento.nombreDepartamento}" />
+                                                <ice:outputLabel value="Localidad:" for="localidad" />
+                                                <ice:outputLabel id="localidad" value="#{venderInmuebleManagedBean.contratoVender.inmueble.direccion.localidad.nombreLocalidad}" />
+                                                <ice:outputLabel value="Calle:" for="nombreCalle" />
+                                                <ice:outputLabel id="nombreCalle" value="#{venderInmuebleManagedBean.contratoVender.inmueble.direccion.nombreCalle}" />
+                                                <ice:outputLabel value="Número:" for="numero" />
+                                                <ice:outputLabel id="numero" value="#{venderInmuebleManagedBean.contratoVender.inmueble.direccion.numero}" />
+                                                <ice:outputLabel value="Piso:" for="nroPiso" />
+                                                <ice:outputLabel id="nroPiso" value="#{venderInmuebleManagedBean.contratoVender.inmueble.direccion.nroPiso}" />
+                                                <ice:outputLabel value="Departamento:" for="nroDepartamento" />
+                                                <ice:outputLabel id="nroDepartamento" value="#{venderInmuebleManagedBean.contratoVender.inmueble.direccion.nroDepartamento}" />
+                                                <ice:outputLabel value="Observación:" for="observacion" />
+                                                <ice:outputLabel id="observacion" value="#{venderInmuebleManagedBean.contratoVender.inmueble.direccion.observacion}" />
+                                            </ice:panelGrid>
+                                        </ice:panelGrid>
+
+                                        <h4>Caracteristicas</h4>
+
+                                        <ice:dataTable  value="#{venderInmuebleManagedBean.contratoVender.inmueble.detallesCaracteristicas}" var="item">
+                                            <ice:column>
+                                                <f:facet name="header">
+                                                    <h:outputText value="Caracteristica"/>
+                                                </f:facet>
+                                                <h:outputText value="#{item.caracteristica.nombre}"/>
+                                            </ice:column>
+                                            <ice:column>
+                                                <f:facet name="header">
+                                                    <h:outputText value="Cantidad"/>
+                                                </f:facet>
+                                                <h:outputText value="#{item.cantidad}"/>
+                                            </ice:column>
+                                            <ice:column>
+                                                <f:facet name="header">
+                                                    <h:outputText value="Puntuacion"/>
+                                                </f:facet>
+                                                <ice:selectOneMenu value="#{item.puntuacion}" disabled="true">
+                                                    <f:selectItem itemLabel="Excelente" itemValue="5" />
+                                                    <f:selectItem itemLabel="Muy Buena" itemValue="4" />                                       
+                                                    <f:selectItem itemLabel="Buena" itemValue="3" />
+                                                    <f:selectItem itemLabel="Regular" itemValue="2" />
+                                                    <f:selectItem itemLabel="Insuficiente"  itemValue="1"/>
+                                                </ice:selectOneMenu>
+                                            </ice:column>
+                                            <ice:column>
+                                                <f:facet name="header">
+                                                    <h:outputText value="Publicar"/>
+                                                </f:facet>
+                                                <ice:selectBooleanCheckbox value="#{item.publicar}" disabled="true"> 
+                                                </ice:selectBooleanCheckbox>
+                                            </ice:column>
+                                        </ice:dataTable>                               
+
+                                        <h4>Servicios</h4>
+
+                                        <ice:dataTable  value="#{venderInmuebleManagedBean.contratoVender.inmueble.detallesServicios}" var="item" >                                        
+                                            <ice:column>
+                                                <f:facet name="header">
+                                                    <h:outputText value="Nombre"/>
+                                                </f:facet>
+                                                <h:outputText value="#{item.servicio.nombre}"/>
+                                            </ice:column>
+                                            <ice:column>
+                                                <f:facet name="header">
+                                                    <h:outputText value="Observación"/>
+                                                </f:facet>
+                                                <h:outputText value="#{item.observacion}" />
+                                            </ice:column>
+                                            <ice:column>
+                                                <f:facet name="header">
+                                                    <h:outputText value="Publicar"/>
+                                                </f:facet>
+                                                <ice:selectBooleanCheckbox value="#{item.publicar}" disabled="true" > 
+                                                </ice:selectBooleanCheckbox>
+                                            </ice:column>
+                                        </ice:dataTable>  
+                                    </ice:panelGrid>
+                                </fieldset>
+                            </f:facet>
+                            <f:facet name="south">
+                                <ice:panelLayout layout="flow"> 
+                                    <ice:commandButton 
+                                        partialSubmit="true"
+                                        action="#{venderInmuebleManagedBean.botonAtrasVerDatosInmueble}" 
+                                        value="Atrás" styleClass="commandButton"
+                                        /> 
+                                    <ice:commandButton 
+                                        immediate="true"
+                                        partialSubmit="true"
+                                        action="#{venderInmuebleManagedBean.botonCancelar()}" 
+                                        value="Cancelar" styleClass="commandButton" 
+                                        />  
+                                    <ice:commandButton 
+                                        partialSubmit="true"
+                                        action="#{venderInmuebleManagedBean.botonSiguienteVerDatosInmueble}" 
+                                        value="Siguiente" styleClass="commandButton" 
+                                        /> 
+                                </ice:panelLayout>
+                            </f:facet>
+                        </ice:panelBorder>
+                    </ice:form>
+                </f:view>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+    <h:outputStylesheet library="org.icefaces.component.skins" name="rime.css" />
+</html>

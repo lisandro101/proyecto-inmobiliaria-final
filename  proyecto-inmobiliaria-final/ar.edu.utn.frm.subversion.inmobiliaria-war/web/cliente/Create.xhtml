@@ -1,0 +1,162 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ice="http://www.icesoft.com/icefaces/component"
+      xmlns:ace="http://www.icefaces.org/icefaces/components"
+      >
+    <h:body>
+        <ui:composition template="/WEB-INF/facelets/templates/commonLayout.xhtml">
+            <ui:define name="content">
+                <f:view>
+                    <ice:form>
+                        <ice:panelBorder layout="hide">
+                            <f:facet name="center">
+                                <fieldset>
+                                    <legend>Datos del Cliente</legend> 
+                                    <ice:panelGrid columns="3" >
+                                        <ice:outputLabel value="Nombre: " for="nombreCliente"/>
+                                        <ice:inputText id="nombreCliente" value="#{cliente.cliente.nombre}" partialSubmit="true" required="true" />
+                                        <h:message for="nombreCliente" styleClass="mensajesError"/>
+
+                                        <ice:outputLabel value="Apellido: " for="apellidoCliente"/>
+                                        <ice:inputText id="apellidoCliente" value="#{cliente.cliente.apellido}" partialSubmit="true" required="true"/>
+                                        <h:message for="apellidoCliente" styleClass="mensajesError"/>
+
+                                        <ice:outputLabel value="Dni: " for="dniCliente"/>
+                                        <ice:inputText id="dniCliente" value="#{cliente.cliente.dni}" partialSubmit="true" required="true" />
+                                        <h:message for="dniCliente" styleClass="mensajesError"/>
+
+                                        <ice:outputLabel value="Cuil: " for="cuilCliente"/>
+                                        <ice:inputText id="cuilCliente" value="#{cliente.cliente.cuil}" partialSubmit="true" required="true"/>
+                                        <h:message for="cuilCliente" styleClass="mensajesError"/>
+
+                                        <ice:outputLabel value="E-mail: " for="emailCliente"/>
+                                        <ice:inputText id="emailCliente" value="#{cliente.cliente.email}" partialSubmit="true" required="true"/>
+                                        <h:message for="emailCliente" styleClass="mensajesError"/>
+
+                                        <ice:outputLabel value="Teléfono: " for="telefonoCliente"/>
+                                        <ice:inputText id="telefonoCliente" value="#{cliente.cliente.telefono}" partialSubmit="true" required="true"/>
+                                        <h:message for="telefonoCliente" styleClass="mensajesError"/>
+
+                                        <h:outputLabel value="Tipo:" for="tipoCliente" />
+                                        <ice:selectOneMenu id="tipoCliente" 
+                                                           partialSubmit="true"
+                                                           immediate="true"
+                                                           value="#{cliente.tipoClienteSelected}"
+                                                           valueChangeListener="#{cliente.seleccionoTipoCliente}"
+                                                           required="true"
+                                                           >
+                                            <f:selectItem itemLabel="- seleccionar -" noSelectionOption="true"/>
+                                            <f:selectItem itemLabel="Fisica"/>
+                                            <f:selectItem itemLabel="Jurídica"/>
+                                        </ice:selectOneMenu>                     
+                                    </ice:panelGrid>    
+                                </fieldset>
+                                
+                                <fieldset>
+                                    <legend>Domicilio</legend>
+                                    <ice:panelGrid cellspacing="5" columns="3"> 
+                                        <ice:outputLabel value="Provincia:" for="provincia" />
+                                        <ice:selectOneMenu id="provincia" 
+                                                           partialSubmit="true"                    
+                                                           immediate="true"
+                                                           value="#{direccionMB.provinciaSelected}"
+                                                           valueChangeListener="#{direccionMB.seleccionoProvincia}"
+                                                           rendered="true"
+                                                           validator="#{validador.validate}"
+                                                           styleClass="comboBox"
+                                                           >
+                                            <f:validator validatorId="noNullValidator"/>
+                                            <f:selectItems value="#{direccionMB.provinciasPosibles}" />
+                                        </ice:selectOneMenu>
+                                        <h:message for="provincia" styleClass="mensajesError" />
+
+                                        <ice:outputLabel value="Departamento:" for="departamento" />
+                                        <ice:selectOneMenu id="departamento" 
+                                                           partialSubmit="true" 
+                                                           immediate="true" 
+                                                           value="#{direccionMB.departamentoSelected}" 
+                                                           valueChangeListener="#{direccionMB.seleccionoDepartamento}"    
+                                                           rendered="true"
+                                                           validator="#{validador.validate}"
+                                                           styleClass="comboBox" 
+                                                           >
+                                            <f:validator validatorId="noNullValidator"/>
+                                            <f:selectItems value="#{direccionMB.departamentosPosibles}" />
+                                        </ice:selectOneMenu>
+                                        <h:message for="departamento" styleClass="mensajesError" />
+
+                                        <ice:outputLabel value="Localidad:" for="localidad" />
+                                        <ice:selectOneMenu id="localidad" 
+                                                           partialSubmit="true"
+                                                           immediate="true"
+                                                           value="#{direccionMB.localidadSelected}" 
+                                                           valueChangeListener="#{direccionMB.seleccionoLocalidad}" 
+                                                           rendered="true"
+                                                           validator="#{validador.validate}"
+                                                           styleClass="comboBox"
+                                                           >                                
+                                            <f:validator validatorId="noNullValidator"/>
+                                            <f:selectItems value="#{direccionMB.localidadesPosibles}"/>
+                                        </ice:selectOneMenu>
+                                        <h:message for="localidad" styleClass="mensajesError" />
+
+                                        <h:outputLabel value="Calle:" for="nombreCalle" />
+                                        <ice:inputText id="nombreCalle" value="#{direccionMB.direccion.nombreCalle}" partialSubmit="true" title="Nombre calle" required="true">
+                                            <f:validator validatorId="noNullValidator"/>
+                                        </ice:inputText>
+                                        <h:message for="nombreCalle" styleClass="mensajesError" />
+
+                                        <h:outputLabel value="Número:" for="numero" />
+                                        <ice:inputText id="numero" value="#{direccionMB.direccion.numero}" partialSubmit="true" title="Número de casa" required="true">
+                                            <f:validator validatorId="noNullValidator"/>
+                                            <f:validator validatorId="intValidator"/> 
+                                        </ice:inputText>
+                                        <h:message for="numero" styleClass="mensajesError" />
+
+                                        <h:outputLabel value="Piso:" for="nroPiso" />
+                                        <ice:inputText id="nroPiso" value="#{direccionMB.direccion.nroPiso}" partialSubmit="true" title="Número de piso" />
+                                        <h:message for="nroPiso" styleClass="mensajesError" />
+                                        
+                                        <h:outputLabel value="Nro Departamento:" for="nroDepartamento" />
+                                        <ice:inputText id="nroDepartamento" value="#{direccionMB.direccion.nroDepartamento}" partialSubmit="true" title="Número de departamento" />
+                                        <h:message for="nroDepartamento" styleClass="mensajesError" />
+                                        
+                                        <h:outputLabel value="Observación:" for="observacion" />
+                                        <ice:inputText id="observacion" value="#{direccionMB.direccion.observacion}" partialSubmit="true" title="Alguna observación adicional" />
+                                        <h:message for="observacion" styleClass="mensajesError" />
+                                        
+                                    </ice:panelGrid>
+                                </fieldset>
+                            </f:facet>
+                            <f:facet name="south">
+                                <ice:panelLayout layout="flow"> 
+
+                                 <ice:commandButton value="Guardar"
+                                    action="#{cliente.create}"  styleClass="commandButton" /> 
+                                  <ice:commandButton value="Imprimir Clientes"
+                                                     action="#{cliente.irAImprimirClientes()}" styleClass="commandButton" />
+                                <!--
+                                  <ice:commandButton value="Editar Cliente" styleClass="commandButton" 
+                                                    action="editarCliente.xhtml" 
+                                                    immediate="true" /> 
+                               -->
+                                 <ice:commandButton action="#{cliente.botonCancelar()}" 
+                                                           value="Cancelar"  styleClass="commandButton"
+                                                           immediate="true"/> 
+                                
+                                </ice:panelLayout>
+                            </f:facet>   
+                        </ice:panelBorder>
+                        <h:messages globalOnly="true" errorStyle="color: red" infoStyle="color: green" />                    
+                    </ice:form>
+                </f:view>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+    <h:outputStylesheet library="org.icefaces.component.skins" name="rime.css" />
+</html>
+

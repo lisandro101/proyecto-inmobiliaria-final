@@ -1,0 +1,225 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<!-- =========== FULL CONFIGURATION FILE ================================== -->
+
+<faces-config version="2.0"
+    xmlns="http://java.sun.com/xml/ns/javaee" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd">
+    <application>
+        <resource-bundle>
+            <base-name>util/Bundle</base-name>
+            <var>bundle</var>
+        </resource-bundle>
+        <locale-config>
+            <default-locale>es</default-locale>
+        </locale-config>
+        <message-bundle>util/Bundle</message-bundle>
+    </application>
+    <validator>
+        <validator-id>Validador</validator-id>
+        <validator-class>com.icesoft.icefaces.tutorial.validators.custom.Validador</validator-class>
+    </validator>
+    
+    <navigation-rule>
+        <from-view-id>/inmueble/inmuebleCrearEditar.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>caracteristicas</from-outcome>
+            <to-view-id>/caracteristica/Listar.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>servicios</from-outcome>
+            <to-view-id>/servicio/Listar.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule>
+        <from-view-id>/caracteristica/Listar.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>inmueble</from-outcome>
+            <to-view-id>/inmueble/inmuebleCrearEditar.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule>
+        <from-view-id>/servicio/Listar.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>inmueble</from-outcome>
+            <to-view-id>/inmueble/inmuebleCrearEditar.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    
+       
+    <managed-bean>
+        <managed-bean-name>paginaPrincipalManagedBean</managed-bean-name>
+        <managed-bean-class>controladores.PaginaPrincipalManagedBean</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+    <navigation-rule>
+        <from-view-id>/visita/BuscarInmueble.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>aceptarSeleccion</from-outcome>
+            <to-view-id>/visita/Create.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    
+    <managed-bean>
+        <managed-bean-name>inmuebleMB</managed-bean-name>
+        <managed-bean-class>controladores.InmuebleManagedBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+    
+    <managed-bean>
+        <managed-bean-name>caracteristicaMB</managed-bean-name>
+        <managed-bean-class>controladores.CaracteristicaManagedBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+    
+    <managed-bean>
+        <managed-bean-name>servicioMB</managed-bean-name>
+        <managed-bean-class>controladores.ServicioManagedBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+    
+<!--    <managed-bean>
+        <managed-bean-name>condicionManagedBean</managed-bean-name>
+        <managed-bean-class>controladores.CondicionManagedBean</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>-->
+
+<!--    <managed-bean>
+        <managed-bean-name>historicoEstadoInmuebleManagedBean</managed-bean-name>
+        <managed-bean-class>controladores.HistoricoEstadoInmuebleManagedBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>-->
+    
+    <managed-bean>
+        <managed-bean-name>estadoInmuebleMB</managed-bean-name>
+        <managed-bean-class>controladores.EstadoInmuebleManagedBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>    
+    
+    <navigation-rule>
+        <from-view-id>/servicio/Create.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>configuracion</from-outcome>
+            <to-view-id>/configuracion/configuracion.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule>
+        <from-view-id>/configuracion/configuracion.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>servicio</from-outcome>
+            <to-view-id>/servicio/Create.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>caracteristica</from-outcome>
+            <to-view-id>/caracteristica/Create.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/caracteristica/Create.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>configuracion</from-outcome>
+            <to-view-id>/configuracion/configuracion.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/usuario/administrarPerfil.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>success</from-outcome>
+            <to-view-id>/usuario/editarPerfil.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    
+    <managed-bean>
+        <managed-bean-name>detalleCaracteristicaMB</managed-bean-name>
+        <managed-bean-class>controladores.DetalleCaracteristicaManagedBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>   
+    
+    <managed-bean>
+        <managed-bean-name>detalleServicioMB</managed-bean-name>
+        <managed-bean-class>controladores.DetalleServicioManagedBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>   
+    
+    <managed-bean>
+        <managed-bean-name>historicoEstadoInmuebleMB</managed-bean-name>
+        <managed-bean-class>controladores.HistoricoEstadoInmuebleManagedBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>   
+    
+    <managed-bean>
+        <managed-bean-name>direccionMB</managed-bean-name>
+        <managed-bean-class>controladores.DireccionManagedBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+    <navigation-rule>
+        <from-view-id>/usuario/agregarPermisos.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>success</from-outcome>
+            <to-view-id>/usuario/editarPerfil.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/principal/login.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>success</from-outcome>
+            <to-view-id>/principal/paginaPrincipal.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>failed</from-outcome>
+            <to-view-id>/principal/login.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule>
+        <from-view-id>/analisisCrediticio/Create.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>trabajo</from-outcome>
+            <to-view-id>/trabajo/Create.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/trabajo/Create.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>analisisCrediticio</from-outcome>
+            <to-view-id>/analisisCrediticio/Create.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/inmueble/List.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>editarInmueble</from-outcome>
+            <to-view-id>/inmueble/inmuebleCrearEditar.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>recursiva</from-outcome>
+            <to-view-id>/inmueble/List.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/comercializacion/VerDatosCliente.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>recursion</from-outcome>
+            <to-view-id>/comercializacion/VerDatosCliente.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>verAnalisisCrediticio</from-outcome>
+            <to-view-id>/comercializacion/VerAnalisisCrediticio.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/comercializacion/IngresarCliente.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>verDatosCliente</from-outcome>
+            <to-view-id>/comercializacion/VerDatosCliente.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>recursion</from-outcome>
+            <to-view-id>/comercializacion/IngresarCliente.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+</faces-config>

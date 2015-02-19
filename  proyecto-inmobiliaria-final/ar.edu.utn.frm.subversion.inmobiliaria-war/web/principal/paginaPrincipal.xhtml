@@ -1,0 +1,52 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ice="http://www.icesoft.com/icefaces/component"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <h:body>
+        <ui:composition template="/WEB-INF/facelets/templates/commonLayout.xhtml">
+            <ui:define name ="content">
+                <f:view>
+                    <ice:form>
+                        <br/><br/>
+                        <ice:graphicImage url="/recursos/imagenes/bienvenida.png" />
+                        <ice:panelPopup modal="true" autoCentre="true" autoPosition="true" title="Cambiar Contraseña" visible="#{usuario.vistaPopUp}" >
+                            <f:facet name="header">
+                                <ice:panelGrid visible="#{usuario.vistaPopUp}" >
+                                    <ice:outputText value="Cambio de Contraseña" visible="#{usuario.vistaPopUp}"/>
+                                </ice:panelGrid>
+                            </f:facet>
+                            <f:facet name="body">
+                                <ice:panelBorder id="bordePopUp">
+                                    <f:facet name="center">
+                                        <ice:panelGrid columns="3" visible="#{usuario.vistaPopUp}">
+                                            <ice:outputLabel value="Contraseña Nueva: " for="contraseñaNueva"/>
+                                            <ice:inputSecret id="contraseñaNueva" value="#{usuario.contraseña}" required="true" >
+                                                <f:validateLength minimum="6" for="contraseñaNueva" />
+                                            </ice:inputSecret>
+                                            <h:message for="contraseñaNueva" styleClass="mensajesError" title="Campo Requerido"/>
+                                            <ice:outputLabel value="Confirme Contraseña: " for="contraseñaConfirmada"/>
+                                            <ice:inputSecret id="contraseñaConfirmada" value="#{usuario.confirmacionContraseña}" required="true" >
+                                                <f:validateLength minimum="6" for="contrase�aConfirmada" />
+                                            </ice:inputSecret>
+                                            <h:message for="contraseñaConfirmada" styleClass="mensajesError" title="Campo Requerido"/>
+                                        </ice:panelGrid>
+                                    </f:facet>
+                                    <f:facet name="south">
+                                        <ice:panelLayout layout="flow" styleClass="panelSur" visible="#{usuario.vistaPopUp}">
+                                            <ice:commandButton value="Aceptar" styleClass="commandButtonChico" action="#{usuario.cambiarContraseña()}" visible="#{usuario.vistaPopUp}"/>
+                                        </ice:panelLayout> 
+                                    </f:facet>
+                                </ice:panelBorder>
+                            </f:facet>
+                        </ice:panelPopup>
+                    </ice:form>
+                </f:view>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+    <h:outputStylesheet library="org.icefaces.component.skins" name="rime.css" />
+</html>
+

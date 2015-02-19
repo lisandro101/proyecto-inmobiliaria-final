@@ -1,0 +1,77 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ice="http://www.icesoft.com/icefaces/component"
+      >
+    <h:body>
+        <ui:composition template="/WEB-INF/facelets/templates/commonLayout.xhtml">
+            <ui:define name="content">
+                <f:view>
+                    <ice:form>
+                        <ice:panelBorder layout="hide">
+                            <f:facet name="center" >
+                                <ice:panelGrid columns="1" > 
+                                    <h3>Nuevo Servicio</h3>
+                                    <ice:panelGrid columns="1" >                                        
+                                        <h:panelGrid columns="3" cellspacing="15">                                         
+                                            <ice:outputLabel value="Nombre:" for="nombre" />
+                                            <ice:inputText id="nombre" value="#{servicioMB.servicio.nombre}" title="Nombre" required="true"> 
+                                                <f:validator validatorId="noNullValidator"/>
+                                            </ice:inputText>
+                                            <h:message for="nombre" styleClass="mensajesError" />
+
+                                            <h:outputLabel value="Descripcion:" for="descripcion" />
+                                            <h:inputText id="descripcion" value="#{servicioMB.servicio.descripcion}" title="Descripcion" />
+                                            <h:message for="descripcion" styleClass="mensajesError" />
+
+                                        </h:panelGrid>
+
+                                        <ice:commandButton action="#{servicioMB.create()}" value="Crear" styleClass="commandButtonChico"> 
+                                        </ice:commandButton>
+
+                                    </ice:panelGrid> 
+                                    <br/>
+                                    <h3>Servicios Disponibles</h3>
+
+                                    <ice:dataTable value="#{servicioMB.serviciosFila}" var="item">
+                                        <ice:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Nombre"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.servicio.nombre}"/>
+                                        </ice:column>
+                                        <ice:column >
+                                            <f:facet name="header">
+                                                <h:outputText value="Descripcion"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.servicio.descripcion}"/>
+                                        </ice:column>
+
+                                    </ice:dataTable>
+
+                                </ice:panelGrid> 
+                            </f:facet>
+
+                            <f:facet name="south">
+                                <ice:panelGrid columns="2"> 
+                                    <ice:commandButton action="#{servicioMB.botonVolverAConfiguracion()}" 
+                                                       value="Aceptar" 
+                                                       immediate="true" styleClass="commandButton" />
+                                    <ice:commandButton action="#{servicioMB.botonVolverAConfiguracion()}" 
+                                                       value="Cancelar" 
+                                                       immediate="true" styleClass="commandButton" />
+                                </ice:panelGrid> 
+                            </f:facet>
+
+                        </ice:panelBorder>
+                        <h:messages globalOnly="true" errorStyle="color: red" infoStyle="color: orange"/>
+                    </ice:form>
+                </f:view>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+    <h:outputStylesheet library="org.icefaces.component.skins" name="rime.css" />
+</html>

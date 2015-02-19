@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+    Document   : BuscarInmueble
+    Created on : 03-oct-2011, 21:00:26
+    Author     : Lisandro
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:icecore="http://www.icefaces.org/icefaces/core"
+      xmlns:ace="http://www.icefaces.org/icefaces/components"
+      xmlns:ice="http://www.icesoft.com/icefaces/component"
+      >
+    <h:body>
+        <ui:composition template="/WEB-INF/facelets/templates/commonLayout.xhtml">
+            <ui:define name="title">
+                <ice:outputText value="#{bundle.CreateVisitaTitle}"></ice:outputText>
+            </ui:define>
+            <ui:define name="content">
+                <f:view>
+                    <ice:panelGroup id="messagePanel" layout="block">
+                        <ice:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                    </ice:panelGroup>
+                    <ice:form>
+                        <ice:dataTable value="#{empleadoMB.empleadoFilas}" var="fila">
+                            <ice:column>
+                                <ice:rowSelector id="selected"
+                                                 value="#{fila.selected}"
+                                                 multiple="false"                                                                                             
+                                                 selectionListener="#{empleadoMB.rowSelectionListener}"
+                                                 immediate="true" />
+                                <f:facet name="header">
+                                    Nro Empleado
+                                </f:facet>
+                                <ice:outputText value="#{fila.empleado.idEmpleado}" />
+                            </ice:column>
+                            <ice:column >
+                                <f:facet name="header">
+                                    Nombre
+                                </f:facet>
+                                <ice:outputText value="#{fila.empleado.apellidoNombre}" />
+                            </ice:column>
+                            <f:facet name="footer">  
+                                <ice:commandButton action="#{visitaController.aceptarEmpleado}" value="Aceptar" styleClass="commandButton" />
+                            </f:facet>
+                        </ice:dataTable>
+                    </ice:form>
+                </f:view>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+    <h:outputStylesheet library="org.icefaces.component.skins" name="rime.css" />css
+</html>

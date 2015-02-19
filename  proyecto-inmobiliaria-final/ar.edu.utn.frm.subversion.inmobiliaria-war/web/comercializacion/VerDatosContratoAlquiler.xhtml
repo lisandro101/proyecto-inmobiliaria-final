@@ -1,0 +1,221 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ice="http://www.icesoft.com/icefaces/component"
+      xmlns:ace="http://www.icefaces.org/icefaces/components"
+      >
+    <h:body>
+        <ui:composition template="/WEB-INF/facelets/templates/commonLayout.xhtml">
+            <ui:define name="content">
+                <f:view>
+                    <ice:form>
+                        <ice:panelBorder layout="hide">
+                            <f:facet name="center">
+                                <fieldset>
+                                    <legend>Propietarios</legend>
+                                    <ice:panelGrid columns="1" cellspacing="10" width="400"> 
+                                        <ice:dataTable value="#{alquilarInmuebleManagedBean.inmueble.propietarios}" var="item" >
+                                            <ice:column >
+                                                <f:facet name="header">
+                                                    <h:outputText value="Nro Cliente"/>
+                                                </f:facet>
+                                                <ice:outputText value="#{item.nroCliente}" /> 
+                                            </ice:column>                                            
+
+                                            <ice:column >
+                                                <f:facet name="header">
+                                                    <h:outputText value="Nombre"/>
+                                                </f:facet>
+                                                <ice:outputText value="#{item.apellidoNombre}" /> 
+                                            </ice:column>
+
+                                            <ice:column>
+                                                <f:facet name="header">
+                                                    <h:outputText value="D.N.I."/>
+                                                </f:facet>
+                                                <ice:outputText value="#{item.dni}"/> 
+                                            </ice:column>                                           
+
+                                            <ice:column>
+                                                <f:facet name="header">
+                                                    <h:outputText value="C.U.I.L."/>
+                                                </f:facet>
+                                                <ice:outputText value="#{item.cuil}"/> 
+                                            </ice:column>
+
+                                        </ice:dataTable>  
+                                    </ice:panelGrid>
+                                </fieldset>
+                                <br/>
+
+                                <fieldset>
+                                    <legend>Inquilino</legend>
+                                    <ice:panelGrid columns="2" width="400" cellspacing="15" style="text-align: left"> 
+                                        <ice:outputLabel value="Nombre Inquilino:" for="nombreInquilino"/>
+                                        <ice:outputLabel id="nombreInquilino" value="#{alquilarInmuebleManagedBean.contratoAlquiler.clienteInquilino.apellidoNombre}" />
+
+                                        <ice:outputLabel value="DNI Inquilino:" for="dniInquilino"/>
+                                        <ice:outputLabel id="dniInquilino" value="#{alquilarInmuebleManagedBean.contratoAlquiler.clienteInquilino.dni}" />                                
+                                    </ice:panelGrid>
+                                </fieldset>
+                                <br/>
+                                <fieldset>
+                                    <legend>Datos del Contrato</legend> 
+                                    <ice:panelGrid columns="2" width="400" cellspacing="15" style="text-align: left">
+
+                                        <ice:outputLabel value="Fecha Inicio:" for="fechaInicio"/>
+                                        <ice:outputLabel id="fechaInicio" value="#{alquilarInmuebleManagedBean.contratoAlquiler.fechaInicio}">                                            
+                                            <f:convertDateTime pattern="dd/MM/yyyy" />
+                                        </ice:outputLabel>                                       
+
+                                        <ice:outputLabel value="Duración (meses): " for="duracion"/>
+                                        <ice:outputLabel id="duracion" value="#{alquilarInmuebleManagedBean.duracionContrato}" />
+
+                                        <ice:outputLabel value="Fecha Finalizacion:" for="fechaFinalizacion"/>
+                                        <ice:outputLabel id="fechaFinalizacion" value="#{alquilarInmuebleManagedBean.contratoAlquiler.fechaFinalizacion}" >                                            
+                                            <f:convertDateTime pattern="dd/MM/yyyy" />
+                                        </ice:outputLabel>    
+
+                                        <ice:outputLabel value="Importe Mensualidad: " for="mensualidad"/>
+                                        <ice:outputLabel id="mensualidad" value="#{alquilarInmuebleManagedBean.importeMensualidad}" />
+
+                                        <ice:outputLabel value="Cantidad Personas: " for="cantPersonas"/>
+                                        <ice:outputLabel id="cantPersonas" value="#{alquilarInmuebleManagedBean.contratoAlquiler.cantPersonas}" />
+
+                                        <ice:outputLabel value="Día de Cobro: " for="diaDeCobro"/>
+                                        <ice:outputLabel id="diaDeCobro" value="#{alquilarInmuebleManagedBean.contratoAlquiler.diaDeCobro}"/>
+
+                                        <ice:outputLabel value="Comisión Mensualidad ($): " for="comision"/>
+                                        <ice:outputLabel id="comision" value="#{alquilarInmuebleManagedBean.comisionMensualidad}"/>    
+
+                                    </ice:panelGrid>    
+                                </fieldset>
+                                <br/>
+                                <fieldset>
+                                    <legend>Dirección de Cobro</legend>
+                                    <ice:panelGrid columns="2" width="400" cellspacing="15" style="text-align: left"> 
+
+                                        <ice:outputLabel value="Provincia:" for="provincia" />
+                                        <ice:outputLabel id="provincia" value="#{alquilarInmuebleManagedBean.contratoAlquiler.lugarDeCobro.provincia.nombreProvincia }"/>
+
+
+                                        <ice:outputLabel value="Departamento:" for="departamento" />
+                                        <ice:outputLabel id="departamento" value="#{alquilarInmuebleManagedBean.contratoAlquiler.lugarDeCobro.departamento.nombreDepartamento}"/>
+
+                                        <ice:outputLabel value="Localidad:" for="localidad" />
+                                        <ice:outputLabel id="localidad" value="#{alquilarInmuebleManagedBean.contratoAlquiler.lugarDeCobro.localidad.nombreLocalidad}"/>
+
+                                        <ice:outputLabel value="Calle:" for="nombreCalle" />
+                                        <ice:outputLabel id="nombreCalle" value="#{alquilarInmuebleManagedBean.contratoAlquiler.lugarDeCobro.nombreCalle}" title="Nombre calle" />
+
+                                        <ice:outputLabel value="Número:" for="numero" />
+                                        <ice:outputLabel id="numero" value="#{alquilarInmuebleManagedBean.contratoAlquiler.lugarDeCobro.numero}" title="Número de casa" />
+
+                                        <ice:outputLabel value="Piso:" for="nroPiso" />
+                                        <ice:outputLabel id="nroPiso" value="#{alquilarInmuebleManagedBean.contratoAlquiler.lugarDeCobro.nroPiso}" title="Número de piso" />
+
+                                        <ice:outputLabel value="Nro Departamento:" for="nroDepartamento" />
+                                        <ice:outputLabel id="nroDepartamento" value="#{alquilarInmuebleManagedBean.contratoAlquiler.lugarDeCobro.nroDepartamento}" title="Número de departamento" />
+
+                                        <ice:outputLabel value="Observación:" for="observacion" />
+                                        <ice:outputLabel id="observacion" value="#{alquilarInmuebleManagedBean.contratoAlquiler.lugarDeCobro.observacion}" title="Alguna observación adicional" />
+                                    </ice:panelGrid>
+                                </fieldset>
+
+                                <br/>
+                                <fieldset>
+                                    <legend>Cuotas</legend>
+
+                                    <ice:panelGrid columns="1" cellspacing="10" width="400" > 
+                                        <ice:dataTable value="#{alquilarInmuebleManagedBean.generarCuotas()}" var="item" >
+                                            <ice:column >
+                                                <f:facet name="header">
+                                                    <h:outputText value="Nro Cuota"/>
+                                                </f:facet>
+                                                <ice:outputText  value="#{item.nroCuota}"/> 
+                                            </ice:column>
+
+                                            <ice:column>
+                                                <f:facet name="header">
+                                                    <h:outputText value="Fecha Vencimiento"/>
+                                                </f:facet>
+                                                <ice:outputText value="#{item.fechaPago}">
+                                                    <f:convertDateTime pattern="dd/MM/yyyy" />
+                                                </ice:outputText>
+                                            </ice:column>
+
+                                            <ice:column >
+                                                <f:facet name="header">
+                                                    <h:outputText value="Importe"/>
+                                                </f:facet>
+                                                <ice:outputText value="#{item.importe}" />
+                                            </ice:column>
+
+                                        </ice:dataTable>  
+
+                                    </ice:panelGrid>
+                                </fieldset>
+
+                            </f:facet>
+
+                            <f:facet name="south">
+
+                                <ice:panelGrid columns="3" cellspacing="15"> 
+
+                                    <ice:commandButton value="Atrás"  styleClass="commandButton" 
+                                                       action="#{alquilarInmuebleManagedBean.botonAtrasVerDatosContrato()}" 
+                                                       immediate="true"/> 
+
+                                    <ice:commandButton value="Cancelar" styleClass="commandButton"
+                                                       action="#{alquilarInmuebleManagedBean.botonCancelar()}"
+                                                       immediate="true"/> 
+
+                                    <ice:commandButton value="Confirmar"  styleClass="commandButton" 
+                                                       action="#{alquilarInmuebleManagedBean.botonConfirmarContrato()}" 
+                                                       immediate="true" /> 
+                                </ice:panelGrid>
+
+                            </f:facet>
+                            <f:facet name="west" >
+                                <ice:panelGrid styleClass="panelGridBordes"> 
+
+                                </ice:panelGrid> 
+                            </f:facet>     
+                            <f:facet name="east" >
+                                <ice:panelGrid styleClass="panelGridBordes"> 
+                                </ice:panelGrid> 
+                            </f:facet> 
+                        </ice:panelBorder>
+
+                        <ice:panelPopup draggable="false" visible="#{alquilarInmuebleManagedBean.mostrarPopupContratoAlquiler}" rendered="#{alquilarInmuebleManagedBean.mostrarPopupContratoAlquiler}" style="z-index: 1000; top: 30%; left: 10%; position: absolute; width: 350px;" modal="true">
+                            <f:facet name="header">
+                                <ice:panelGrid width="350;" cellpadding="0" cellspacing="0" columns="2" style="text-align: center;">
+                                    <ice:outputText value="El Contrato de alquiler se ha generado satisfactoriamente. Puede visualizarlo en la sección Reportes"/>                                    
+                                </ice:panelGrid>
+                            </f:facet>
+                            <f:facet name="body">
+                                <ice:panelGrid columns="1">
+                                    <ice:commandButton 
+                                        action="#{alquilarInmuebleManagedBean.closePopupContratoAlquiler()}" value="Aceptar" styleClass="commandButton" /> 
+                                </ice:panelGrid>
+                            </f:facet>
+                        </ice:panelPopup>
+
+
+
+
+
+                        <h:messages globalOnly="true" errorStyle="color: red" infoStyle="color: orange" />
+
+                    </ice:form>
+                </f:view>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+
+    <h:outputStylesheet library="org.icefaces.component.skins" name="rime.css" />
+</html>
+

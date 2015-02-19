@@ -1,0 +1,159 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ice="http://www.icesoft.com/icefaces/component"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      >
+    <h:body>
+        <ui:composition template="/WEB-INF/facelets/templates/commonLayout.xhtml">         
+            <ui:define name="title">
+                <ice:outputText value="Venta"></ice:outputText>
+            </ui:define>
+            <ui:define name="content">
+                <f:view>
+                    <ice:form>
+                        <ice:panelGroup id="messagePanel" layout="block">
+                            <ice:messages errorStyle="color: red" infoStyle="color: green" layout="table" globalOnly="true"/>
+                        </ice:panelGroup>
+                        <ice:panelBorder layout="hide">
+                            <f:facet name="center" >
+                                <fieldset>
+                                    <legend>Datos del Contrato</legend> 
+                                    <ice:panelGrid columns="3" >
+                                        <ice:outputLabel value="Fecha" for="fecha" />                                                       
+                                        <ice:selectInputDate id="fecha" value="#{venderInmuebleManagedBean.contratoVender.fechaFirma}" title="Fecha" renderAsPopup="true" required="true"> 
+                                            <f:convertDateTime pattern="dd/MM/yyyy" />
+                                        </ice:selectInputDate>
+                                        <h:message for="fecha" styleClass="mensajesError" />
+                                        <ice:outputLabel value="Numero:" for="nroContrato" />
+                                        <ice:inputText id="nroContrato" value="#{venderInmuebleManagedBean.contratoVender.nroContrato}" 
+                                                       title="Número de Contrato" required="true" partialSubmit="true">
+                                            <f:validator validatorId="noNullValidator"/>
+                                            <f:validator validatorId="intValidator"/>
+                                        </ice:inputText>
+                                        <h:message for="nroContrato" styleClass="mensajesError" />
+                                        <ice:outputLabel value="Importe Efectivo:" for="importeEfectivoVenta" />
+                                        <ice:inputText id="importeEfectivoVenta" value="#{venderInmuebleManagedBean.contratoVender.importe}" title="Importe efectivo de venta" 
+                                                       onchange="submit()" valueChangeListener="#{venderInmuebleManagedBean.onImporteChange}" partialSubmit="true" immediate="true" required="true">
+                                            <f:validator validatorId="noNullValidator"/>
+                                            <f:validator validatorId="intValidator"/>
+                                        </ice:inputText>
+                                        <h:message for="importeEfectivoVenta" styleClass="mensajesError" />
+                                        <ice:outputLabel value="Porcentaje comisión comprador:" for="porcentajeComisionComprador" />
+                                        <ice:inputText id="porcentajeComisionComprador" value="#{venderInmuebleManagedBean.porcentajeComisionComprador}" title="Porcentaje de comisión del comprador" required="true" readonly="true" styleClass="disabledInput"/>
+                                        <h:message for="porcentajeComisionComprador" styleClass="mensajesError" />
+                                        <ice:outputLabel value="Comisión comprador:" for="comisionComprador" />
+                                        <ice:inputText id="comisionComprador" value="#{venderInmuebleManagedBean.comisionComprador}" title="Comisión efectiva del comprador" required="true" readonly="true" styleClass="disabledInput"/>
+                                        <h:message for="comisionComprador" styleClass="mensajesError" />
+                                        <ice:outputLabel value="Porcentaje comisión vendedor:" for="porcentajeComisionVendedor" />
+                                        <ice:inputText id="porcentajeComisionVendedor" value="#{venderInmuebleManagedBean.porcentajeComisionVendedor}" title="Porcentaje de comisión del vendedor" required="true" readonly="true" styleClass="disabledInput"/>
+                                        <h:message for="porcentajeComisionVendedor" styleClass="mensajesError" />
+                                        <ice:outputLabel value="Comisión vendedor:" for="comisionVendedor" />
+                                        <ice:inputText id="comisionVendedor" value="#{venderInmuebleManagedBean.comisionVendedor}" title="Comisión efectiva del vendedor" required="true" readonly="true" styleClass="disabledInput"/>
+                                        <h:message for="comisionVendedor" styleClass="mensajesError" />
+                                        <ice:outputLabel value="Importe:" for="importeVenta" />
+                                        <ice:inputText id="importeVenta" value="#{venderInmuebleManagedBean.importe}" title="Importe efectivo de venta" required="true" readonly="true" styleClass="disabledInput"/>
+                                        <h:message for="importeVenta" styleClass="mensajesError" />
+                                        <ice:outputLabel value="Multa diaria:" for="multaDiaria" />
+                                        <ice:inputText id="multaDiaria" value="#{venderInmuebleManagedBean.multaDiaria}" title="Multa diaria por incumplimiento de pago" required="true" readonly="true" styleClass="disabledInput"/>
+                                        <h:message for="multaDiaria" styleClass="mensajesError" />
+                                        <ice:outputLabel value="Importe Boleto Compra-Venta:" for="importeBoletoCompraVenta" />
+                                        <ice:inputText id="importeBoletoCompraVenta" value="#{venderInmuebleManagedBean.contratoVender.importeCompraVenta}" title="Importe a pagar al momento de realizar el boleto de compra-venta" required="true" immediate="true" partialSubmit="true"
+                                                       onchange="submit()" valueChangeListener="#{venderInmuebleManagedBean.onImporteCompraVentaChange}">
+                                            <f:validator validatorId="noNullValidator"/>
+                                            <f:validator validatorId="intValidator"/>
+                                        </ice:inputText>
+                                        <h:message for="importeBoletoCompraVenta" styleClass="mensajesError" />
+                                        <ice:outputLabel value="Importe Escrituración:" for="importeEscrituracion" />
+                                        <ice:inputText id="importeEscrituracion" value="#{venderInmuebleManagedBean.importeEscrituracion}" title="Importe a pagar al momento de realizar la escritura" required="true" readonly="true" styleClass="disabledInput"/>
+                                        <h:message for="importeEscrituracion" styleClass="mensajesError" />
+                                    </ice:panelGrid>
+                                </fieldset>
+                                <fieldset>
+                                    <legend>Dirección de Pago</legend>
+                                    <ice:panelGrid cellspacing="5" columns="3"> 
+                                        <ice:outputLabel value="Provincia:" for="provincia" />
+                                        <ice:selectOneMenu id="provincia" 
+                                                           partialSubmit="true"                    
+                                                           immediate="true"
+                                                           value="#{venderInmuebleManagedBean.direccionManagedBean.provinciaSelected}"
+                                                           valueChangeListener="#{venderInmuebleManagedBean.direccionManagedBean.seleccionoProvincia}"
+                                                           rendered="true"
+                                                           validator="#{validador.validate}"
+                                                           styleClass="comboBox"
+                                                           >
+
+                                            <f:selectItems value="#{venderInmuebleManagedBean.direccionManagedBean.provinciasPosibles}" />
+                                        </ice:selectOneMenu>
+                                        <h:message for="provincia" styleClass="mensajesError" /> 
+
+                                        <ice:outputLabel value="Departamento:" for="departamento" />
+                                        <ice:selectOneMenu id="departamento" 
+                                                           partialSubmit="true" 
+                                                           immediate="true" 
+                                                           value="#{venderInmuebleManagedBean.direccionManagedBean.departamentoSelected}" 
+                                                           valueChangeListener="#{venderInmuebleManagedBean.direccionManagedBean.seleccionoDepartamento}"    
+                                                           rendered="true"
+                                                           validator="#{validador.validate}"
+                                                           styleClass="comboBox"
+                                                           >
+
+                                            <f:selectItems value="#{venderInmuebleManagedBean.direccionManagedBean.departamentosPosibles}" />
+                                        </ice:selectOneMenu>
+                                        <h:message for="departamento" styleClass="mensajesError" /> 
+
+                                        <ice:outputLabel value="Localidad:" for="localidad" />
+                                        <ice:selectOneMenu id="localidad" 
+                                                           partialSubmit="true"
+                                                           immediate="true"
+                                                           value="#{venderInmuebleManagedBean.direccionManagedBean.localidadSelected}" 
+                                                           valueChangeListener="#{venderInmuebleManagedBean.direccionManagedBean.seleccionoLocalidad}" 
+                                                           rendered="true"
+                                                           validator="#{validador.validate}"
+                                                           styleClass="comboBox"
+                                                           >                                
+
+                                            <f:selectItems value="#{venderInmuebleManagedBean.direccionManagedBean.localidadesPosibles}"/>
+                                        </ice:selectOneMenu>
+                                        <h:message for="localidad" styleClass="mensajesError" />
+
+                                        <h:outputLabel value="Calle:" for="nombreCalle" />
+                                        <ice:inputText id="nombreCalle" value="#{venderInmuebleManagedBean.direccionManagedBean.direccion.nombreCalle}" required="true" partialSubmit="true" title="Nombre calle" />
+                                        <h:message for="nombreCalle" styleClass="mensajesError" />
+
+                                        <h:outputLabel value="Número:" for="numero" />
+                                        <ice:inputText id="numero" value="#{venderInmuebleManagedBean.direccionManagedBean.direccion.numero}" required="true" partialSubmit="true" title="Número de casa" />
+                                        <h:message for="numero" styleClass="mensajesError" />
+
+                                        <h:outputLabel value="Piso:" for="nroPiso" />
+                                        <ice:inputText id="nroPiso" value="#{venderInmuebleManagedBean.direccionManagedBean.direccion.nroPiso}" partialSubmit="true" title="Número de piso" />
+                                        <h:message for="nroPiso" styleClass="mensajesError" />
+
+                                        <h:outputLabel value="Nro Departamento:" for="nroDepartamento" />
+                                        <ice:inputText id="nroDepartamento" value="#{venderInmuebleManagedBean.direccionManagedBean.direccion.nroDepartamento}" partialSubmit="true" title="Número de departamento" />
+                                        <h:message for="nroDepartamento" styleClass="mensajesError" /> 
+
+                                        <h:outputLabel value="Observación:" for="observacion" />
+                                        <ice:inputText id="observacion" value="#{venderInmuebleManagedBean.direccionManagedBean.direccion.observacion}" partialSubmit="true" title="Información adicional" />
+                                        <h:message for="observacion" styleClass="mensajesError" /> 
+                                        
+                                    </ice:panelGrid>
+                                </fieldset>
+                            </f:facet>
+                            <f:facet name="south">
+                                <ice:panelLayout layout="flow"> 
+                                    <ice:commandButton action="#{venderInmuebleManagedBean.botonAtrasIngresarVenta()}" value="Atrás" immediate="true"  partialSubmit="true" styleClass="commandButton"/> 
+                                    <ice:commandButton action="#{venderInmuebleManagedBean.botonCancelar()}" value="Cancelar" immediate="true"  partialSubmit="true" styleClass="commandButton" /> 
+                                    <ice:commandButton action="#{venderInmuebleManagedBean.botonSiguienteIngresarVenta()}" value="Siguiente" styleClass="commandButton" /> 
+                                </ice:panelLayout>
+                            </f:facet>
+                        </ice:panelBorder>
+                    </ice:form>
+                </f:view>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+    <h:outputStylesheet library="org.icefaces.component.skins" name="rime.css" />
+</html>

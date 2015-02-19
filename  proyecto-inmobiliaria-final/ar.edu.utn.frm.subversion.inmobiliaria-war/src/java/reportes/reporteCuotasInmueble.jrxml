@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reporteCuotasInmueble" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="imgFondo" class="java.io.InputStream">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="imgCabecera" class="java.io.InputStream"/>
+	<parameter name="txtNombreReporte" class="java.lang.String"/>
+	<parameter name="nroContrato" class="java.lang.String">
+		<defaultValueExpression><![CDATA["5804"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String"/>
+	<parameter name="imgCodigoBarra" class="java.io.InputStream"/>
+	<queryString>
+		<![CDATA[SELECT
+     contratoalquiler.`IDCONTRATO` AS contratoalquiler_IDCONTRATO,
+     contratoalquiler.`CANTPERSONAS` AS contratoalquiler_CANTPERSONAS,
+     contratoalquiler.`FECHAFIRMA` AS contratoalquiler_FECHAFIRMA,
+     contratoalquiler.`FECHAINICIO` AS contratoalquiler_FECHAINICIO,
+     contratoalquiler.`DIADECOBRO` AS contratoalquiler_DIADECOBRO,
+     contratoalquiler.`NROCONTRATO` AS contratoalquiler_NROCONTRATO
+FROM
+     `contratoalquiler` contratoalquiler
+where contratoalquiler.`NROCONTRATO`=$P{nroContrato}]]>
+	</queryString>
+	<field name="contratoalquiler_IDCONTRATO" class="java.lang.String"/>
+	<field name="contratoalquiler_CANTPERSONAS" class="java.lang.Integer"/>
+	<field name="contratoalquiler_FECHAFIRMA" class="java.sql.Date"/>
+	<field name="contratoalquiler_FECHAINICIO" class="java.sql.Date"/>
+	<field name="contratoalquiler_DIADECOBRO" class="java.lang.Integer"/>
+	<field name="contratoalquiler_NROCONTRATO" class="java.lang.Integer"/>
+	<background>
+		<band height="802">
+			<image scaleImage="RealSize" hAlign="Center" vAlign="Middle" onErrorType="Blank">
+				<reportElement mode="Opaque" x="1" y="184" width="552" height="106"/>
+				<imageExpression><![CDATA[$P{imgFondo}]]></imageExpression>
+			</image>
+		</band>
+	</background>
+	<title>
+		<band height="22">
+			<image scaleImage="RealHeight">
+				<reportElement x="3" y="0" width="549" height="22"/>
+				<imageExpression><![CDATA[$P{imgCabecera}]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement x="215" y="0" width="293" height="22"/>
+				<textElement>
+					<font fontName="Impact" size="18"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{txtNombreReporte}.toString()]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="41" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="555" height="36"/>
+				<textElement/>
+				<textFieldExpression><![CDATA["El siguiente documento representa al CONTRATO DE ALQUILER, en el comienza el día "+ $F{contratoalquiler_FECHAINICIO}.toLocaleString().substring(0,10)+", entre los abajo firmantes."
+]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="47" splitType="Stretch">
+			<elementGroup>
+				<subreport>
+					<reportElement x="0" y="0" width="555" height="44"/>
+					<subreportParameter name="contrato_ID">
+						<subreportParameterExpression><![CDATA[$F{contratoalquiler_IDCONTRATO}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "reporteCuotasInmueble_subPropietarios.jasper"]]></subreportExpression>
+				</subreport>
+			</elementGroup>
+		</band>
+		<band height="50">
+			<subreport>
+				<reportElement x="0" y="0" width="555" height="50"/>
+				<subreportParameter name="contrato_ID">
+					<subreportParameterExpression><![CDATA[$F{contratoalquiler_IDCONTRATO}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "reporteCuotasInmueble_subInquilinos.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="56">
+			<subreport>
+				<reportElement x="0" y="0" width="555" height="50"/>
+				<subreportParameter name="contrato_ID">
+					<subreportParameterExpression><![CDATA[$F{contratoalquiler_IDCONTRATO}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="imgCodigoBarra">
+					<subreportParameterExpression><![CDATA[$P{imgCodigoBarra}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "reporteCuotasInmueble_subCuotas.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="21" splitType="Stretch">
+			<textField>
+				<reportElement x="261" y="1" width="294" height="18"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy HH.mm">
+				<reportElement x="102" y="1" width="100" height="17"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="1" y="1" width="101" height="17"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[Fecha de impresión:]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="0" width="554" height="1"/>
+			</line>
+		</band>
+	</pageFooter>
+</jasperReport>

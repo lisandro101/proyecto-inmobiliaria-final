@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
+  <persistence-unit name="ar.edu.utn.frm.subversion.inmobiliaria-ejbPU" transaction-type="JTA">
+    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+    <jta-data-source>jdbc/inmobiliaria</jta-data-source>
+    <class>entidades.Accion</class>
+    <class>entidades.AnalisisCrediticio</class>
+    <class>entidades.Asignacion</class>
+    <class>entidades.Calendario</class>
+    <class>entidades.Caracteristica</class>
+    <class>entidades.Cliente</class>
+    <class>entidades.Condicion</class>
+    <class>entidades.CondicionGarante</class>
+    <class>entidades.Contacto</class>
+    <class>entidades.ContratoAlquiler</class>
+    <class>entidades.ContratoCompraVenta</class>
+    <class>entidades.Criterio</class>
+    <class>entidades.Cuota</class>
+    <class>entidades.Departamento</class>
+    <class>entidades.DetalleCaracteristica</class>
+    <class>entidades.DetalleServicio</class>
+    <class>entidades.Dia</class>
+    <class>entidades.Direccion</class>
+    <class>entidades.Empleado</class>
+    <class>entidades.EstadoAnalisisCrediticio</class>
+    <class>entidades.EstadoInmueble</class>
+    <class>entidades.EstadoVisita</class>
+    <class>entidades.Evento</class>
+    <class>entidades.Garantia</class>
+    <class>entidades.HistoricoEstadoInmueble</class>
+    <class>entidades.Inmueble</class>
+    <class>entidades.Localidad</class>
+    <class>entidades.Medio</class>
+    <class>entidades.Menu</class>
+    <class>entidades.Mes</class>
+    <class>entidades.ParametroDelSistema</class>
+    <class>entidades.Perfil</class>
+    <class>entidades.Permiso</class>
+    <class>entidades.Provincia</class>
+    <class>entidades.Publicacion</class>
+    <class>entidades.Reserva</class>
+    <class>entidades.Servicio</class>
+    <class>entidades.Tasacion</class>
+    <class>entidades.TipoInmueble</class>
+    <class>entidades.TipoMedio</class>
+    <class>entidades.TipoPago</class>
+    <class>entidades.Trabajo</class>
+    <class>entidades.Usuario</class>
+    <class>entidades.Visita</class>
+    <exclude-unlisted-classes>true</exclude-unlisted-classes>
+    <properties>
+      <property name="eclipselink.ddl-generation" value="create-tables"/>
+    </properties>
+  </persistence-unit>
+</persistence>

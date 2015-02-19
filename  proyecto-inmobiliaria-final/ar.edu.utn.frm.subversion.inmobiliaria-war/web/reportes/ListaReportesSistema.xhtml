@@ -1,0 +1,69 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ice="http://www.icesoft.com/icefaces/component"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      >
+       <h:body>
+           <ui:composition template="/WEB-INF/facelets/templates/commonLayout.xhtml">     
+            <ui:define name="title">
+                <ice:outputText value="Reporte del sistema."></ice:outputText>
+            </ui:define>
+            <ui:define name="content">
+                <f:view>
+                    <ice:form>
+                        <ice:panelGroup id="messagePanel" layout="block">
+                            <ice:messages errorStyle="color: red" infoStyle="color: green" layout="table" globalOnly="true"/>
+                        </ice:panelGroup>
+                        <ice:panelBorder layout="hide">
+                            <f:facet name="center" >
+                                <fieldset>
+                                    <legend>Reporte del sistema.</legend> 
+                                    <ice:panelGrid columns="1" >
+                                        <ice:commandButton action="#{reporteMB.irAClientesFiltro}" 
+                                                           value="Clientes" 
+                                                           title="Permite imprimir un listado de clientes"
+                                             />
+                                        
+                                        <ice:commandButton action="#{reporteMB.irAInfoCliente}" 
+                                                           value="Info. Cliente" 
+                                                           title="Permite imprimir la información respectiva de un determinado cliente"
+                                                            /> 
+                                        
+                                        <ice:commandButton action="#{reporteMB.irAVisitasEntreFechas}" 
+                                                           value="Info. visitas" 
+                                                           title="Permite imprimir visitas entre un rango de fechas"
+                                                            /> 
+                                        
+                                        <ice:commandButton action="#{reporteMB.irAreporteVisitasAInmueble}" 
+                                                           value="Visitas" 
+                                                           title="Permite imprimir las visitas que ha tenido un inmueble." 
+                                                            /> 
+                                        
+                                        <ice:commandButton action="#{reporteMB.irAreporteContratoAlquiler}" 
+                                                           value="Alquileres" 
+                                                           title="Permite imprimir la información sobre un contrato de alquiler." 
+                                                            />
+                                        
+                                        <ice:commandButton action="#{reporteMB.irAReporteContratoVenta}" 
+                                                           value="Ventas" 
+                                                           title="Permite imprimir la información sobre un contrato de compra-venta." 
+                                                            />
+                                       
+                                    </ice:panelGrid>
+                                </fieldset>
+                              
+                            </f:facet>
+                            
+                        </ice:panelBorder>
+                    </ice:form>
+                </f:view>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+    <h:outputStylesheet library="org.icefaces.component.skins" name="rime.css" />
+
+</html>
+

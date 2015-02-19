@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reporteClientesConFiltro" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.4641000000000013"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="imgFondo" class="java.io.InputStream">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="imgCabecera" class="java.io.InputStream"/>
+	<parameter name="txtNombreReporte" class="java.lang.String"/>
+	<parameter name="valor" class="java.lang.String">
+		<defaultValueExpression><![CDATA["A"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT cliente.`APELLIDO` AS cliente_APELLIDO,
+    cliente.`DNI` AS cliente_DNI,
+    cliente.`EMAIL` AS cliente_EMAIL,
+    cliente.`NOMBRE` AS cliente_NOMBRE,
+    cliente.`NROCLIENTE` AS cliente_NROCLIENTE,
+    cliente.`TIPO` AS cliente_TIPO
+    FROM
+    `cliente` cliente
+    where cliente.`APELLIDO` LIKE '%$P!{valor}%' or cliente.`NOMBRE` LIKE '%$P!{valor}%'
+    ORDER BY cliente.`APELLIDO` ASC,
+    		cliente.`NOMBRE` ASC]]>
+	</queryString>
+	<field name="cliente_APELLIDO" class="java.lang.String"/>
+	<field name="cliente_DNI" class="java.lang.String"/>
+	<field name="cliente_EMAIL" class="java.lang.String"/>
+	<field name="cliente_NOMBRE" class="java.lang.String"/>
+	<field name="cliente_NROCLIENTE" class="java.lang.String"/>
+	<field name="cliente_TIPO" class="java.lang.String"/>
+	<variable name="cliente_NROCLIENTE_1" class="java.lang.Integer" resetType="Page" calculation="Count">
+		<variableExpression><![CDATA[$F{cliente_NROCLIENTE}]]></variableExpression>
+	</variable>
+	<background>
+		<band height="802">
+			<image scaleImage="RealSize" hAlign="Center" vAlign="Middle" onErrorType="Blank">
+				<reportElement mode="Opaque" x="1" y="184" width="552" height="106"/>
+				<imageExpression><![CDATA[$P{imgFondo}]]></imageExpression>
+			</image>
+		</band>
+	</background>
+	<title>
+		<band height="26" splitType="Stretch">
+			<image scaleImage="RealHeight">
+				<reportElement x="3" y="0" width="549" height="23"/>
+				<imageExpression><![CDATA[$P{imgCabecera}]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement x="215" y="0" width="293" height="22"/>
+				<textElement>
+					<font fontName="Impact" size="18"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{txtNombreReporte}.toString()]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="62" splitType="Stretch">
+			<textField>
+				<reportElement x="2" y="4" width="549" height="28"/>
+				<textElement/>
+				<textFieldExpression><![CDATA["A continuación se muestra el listado de clientes bajo el filtro de apellidos y/o nombre en base al valor buscado de '"+ $P{valor}+"'."]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Page">
+				<reportElement x="3" y="32" width="548" height="27"/>
+				<textElement/>
+				<textFieldExpression><![CDATA["Se presentan los primeros "+ $V{cliente_NROCLIENTE_1}.toString() + " resultados perteneciente a los clientes que se encuentran registrados en el sistema, los mismos están ordenados alfabéticamente."]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="24" splitType="Stretch">
+			<staticText>
+				<reportElement x="9" y="1" width="100" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[N° CLIENTE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="114" y="1" width="211" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[APELLIDO Y NOMBRE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="460" y="2" width="92" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[TIPO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="325" y="2" width="133" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[EMAIL]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="22" splitType="Stretch">
+			<textField>
+				<reportElement x="9" y="1" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{cliente_NROCLIENTE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="114" y="1" width="211" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{cliente_APELLIDO} +", "+ $F{cliente_NOMBRE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="460" y="2" width="92" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{cliente_TIPO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="325" y="2" width="133" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{cliente_EMAIL}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="21" splitType="Stretch">
+			<textField>
+				<reportElement x="261" y="1" width="294" height="18"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy HH.mm">
+				<reportElement x="102" y="1" width="100" height="17"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="1" y="1" width="101" height="17"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[Fecha de impresión:]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="0" width="554" height="1"/>
+			</line>
+		</band>
+	</pageFooter>
+</jasperReport>

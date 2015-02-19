@@ -1,0 +1,138 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!--
+    Document   : listarUsuarios
+    Created on : 24-ago-2011, 17:18:15
+    Author     : Dario
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ice="http://www.icesoft.com/icefaces/component"
+      xmlns:ace="http://www.icefaces.org/icefaces/components"
+      >
+     <h:body>
+        <ui:composition template="/WEB-INF/facelets/templates/commonLayout.xhtml">
+            <ui:define name="content">
+                <f:view>
+                    <ice:form>
+                        <ice:panelBorder layout="hide">
+                            <f:facet name="center" >
+                                <ice:panelDivider dividerPosition="30" orientation="horizontal">
+                                    <f:facet name="first">
+                                            <fieldset>
+                                                    <legend>Filtro de Busqueda</legend>
+                                                    <ice:panelGrid columns="4">
+                                                            <ice:outputLabel value="Nombre de Usuario: " for="filtroNombreUsuario" />
+                                                            <ice:inputText id="filtroNombreUsuario" value="#{asignacion.filtroNombreUsuario}" />
+                                                            <ice:commandButton title="Buscar" action="#{asignacion.buscarPorFiltro}" styleClass="botonBuscar"
+                                                                               value="Buscar" partialSubmit="true"/>
+<!--                                                            <ice:commandButton title="Busqueda Avanzada" action="#{asignacion.buscarPorFiltro}"
+                                                                styleClass="botonBuscar" image="/recursos/imagenes/buscarAvanzada.png" partialSubmit="true" />-->
+                                                    </ice:panelGrid>
+                                            </fieldset>
+                                        <h:message for="filtroNombreUsuario" styleClass="mensajesError" />
+                                    </f:facet>
+                                    <f:facet name="second">
+                                        <ice:panelDivider dividerPosition="50" orientation="horizontal">
+                                            <f:facet name="first">  
+                                                <fieldset>
+                                                    <legend>Datos del Usuario</legend>
+                                                    <ice:panelGrid columns="4">
+                                                        <ice:outputLabel value="Nombre: " for="nombre"/>
+                                                        <ice:inputText id="nombre" value="#{usuario.usuario.nombre}" 
+                                                             required="true" validator="#{validador.validate}" />
+                                                        <ice:outputLabel value="Apellido: " for="apellidoUsuario"/>
+                                                        <ice:inputText id="apellidoUsuario" value="#{usuario.usuario.apellido}" 
+                                                             required="true" validator="#{validador.validate}" />
+                                                        <br />
+                                                        <h:message for="nombre" styleClass="mensajesError"/>
+                                                        <br />
+                                                        <h:message for="apellidoUsuario" styleClass="mensajesError"/>
+                                                        <ice:outputLabel value="e-mail: " for="mailUsuario"/>
+                                                        <ice:inputText id="mailUsuario" value="#{usuario.usuario.email}" required="true" validator="#{validador.validate}">
+                                                            <f:validateRegex pattern="^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$" for="mailUsuario" />
+                                                        </ice:inputText>
+                                                        <ice:outputLabel value="Usuario: " for="nombreUsuario"/>
+                                                        <ice:inputText id="nombreUsuario" value="#{usuario.usuario.nombreUsuario}" 
+                                                            required="true" validator="#{validador.validate}" />
+                                                        <br />
+                                                        <h:message for="mailUsuario" styleClass="mensajesError" />
+                                                        <br />
+                                                        <h:message for="nombreUsuario" styleClass="mensajesError" />
+                                                        <ice:outputLabel value="Contraseña: " for="contraseñaUsuario"/>
+                                                        <ice:inputSecret id="contraseñaUsuario" value="#{usuario.usuario.contrasenia}" 
+                                                                         valueChangeListener="#{usuario.cambioContraseña}" validator="#{validador.validate}" styleClass="inputContraseña">
+                                                            <f:validateLength minimum="6" for="contraseñaUsuario" />
+                                                        </ice:inputSecret>
+                                                        <ice:outputLabel value="Confirme Contraseña: " for="confirmeContraseña"/>
+                                                        <ice:inputSecret id="confirmeContraseña" value="#{usuario.confirmacionContraseña}" 
+                                                                         validator="#{validador.validate}" styleClass="inputContraseña">
+                                                            <f:validateLength minimum="6" for="confirmeContraseña" />
+                                                        </ice:inputSecret>
+                                                        <br />
+                                                        <h:message for="contraseñaUsuario" styleClass="mensajesError"/>
+                                                        <br />
+                                                        <h:message for="confirmeContraseña" styleClass="mensajesError"/>
+                                                    </ice:panelGrid>                                            
+                                                </fieldset>
+                                            </f:facet>
+                                            <f:facet name="second">
+                                                <fieldset>
+                                                    <legend>Perfil Asignado</legend>
+                                                    <ice:panelGrid columns="2">
+                                                        <ice:outputLabel value="Perfil: " for="perfil"/>
+                                                        <ice:selectOneMenu id="perfil" styleClass="comboBox" 
+                                                                valueChangeListener="#{perfil.asignarPerfil}" value="#{perfil.indice}">
+                                                            <f:selectItems value="#{perfil.buscarNombresPerfiles()}" />
+                                                        </ice:selectOneMenu>
+                                                        <h:message for="perfil" styleClass="mensajesError" />
+                                                        <br />
+                                                        <ice:outputLabel value="Fecha Desde: " for="fechaDesde"/>
+                                                        <ice:selectInputDate id="fechaDesde" value="#{asignacion.fechaDesde}" renderAsPopup="true"
+                                                                             partialSubmit="false" styleClass="iceSelInpDateOpenPopup">
+                                                           <f:convertDateTime pattern="dd/MM/yyyy" />
+                                                        </ice:selectInputDate>
+                                                        <h:message for="fechaDesde" styleClass="mensajesError" />
+                                                        <br />
+                                                        <ice:outputLabel value="Fecha Hasta: " for="fechaHasta"/>
+                                                        <ice:selectInputDate  id="fechaHasta" value="#{asignacion.fechaHasta}" renderAsPopup="true" 
+                                                                              partialSubmit="false" >
+                                                            <f:convertDateTime pattern="dd/MM/yyyy" />
+                                                        </ice:selectInputDate>
+                                                        <h:message for="fechaHasta" styleClass="mensajesError" />
+                                                        <br />
+                                                    </ice:panelGrid>                                            
+                                                </fieldset>
+                                            </f:facet>
+                                        </ice:panelDivider>
+                                    </f:facet>
+                                </ice:panelDivider>
+                            </f:facet>
+                            <f:facet name="south">
+                                    <ice:panelLayout layout="flow" styleClass="panelSur">
+                                        <ice:commandButton value="Modificar" action="#{asignacion.modificarUsuario}" id="Modificar" styleClass="commandButton"  />
+                                        <ice:commandButton value="Borrar" action="#{asignacion.eliminarAsignacion}" styleClass="commandButton" />
+                                    </ice:panelLayout>
+                            </f:facet>
+                            
+                            <f:facet name="west">
+                                <ice:panelGrid styleClass="panelGridBordes"> 
+                                     
+                                </ice:panelGrid> 
+                            </f:facet>     
+                            <f:facet name="east" >
+                                <ice:panelGrid styleClass="panelGridBordes"> 
+                                
+                                </ice:panelGrid> 
+                            </f:facet>     
+                        </ice:panelBorder>
+                        <h:messages globalOnly="true" errorStyle="color: red" infoStyle="color: orange" />
+                    </ice:form>
+                </f:view>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+    <h:outputStylesheet library="org.icefaces.component.skins" name="rime.css" />
+</html>

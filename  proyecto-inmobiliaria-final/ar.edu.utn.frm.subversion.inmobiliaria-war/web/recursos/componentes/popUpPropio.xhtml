@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!--
+    Document   : PopUp
+    Created on : 24-ago-2011, 17:18:15
+    Author     : Dario
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ice="http://www.icesoft.com/icefaces/component"
+      xmlns:ace="http://www.icefaces.org/icefaces/components"
+      >
+    <ice:panelPopup modal="true" autoCentre="true" autoPosition="true" title="Cambiar Contraseña" visible="#{usuario.activarPop}" >
+        <f:facet name="header">
+            <ice:panelGrid visible="#{usuario.vistaPopUp}" >
+                <ice:outputText value="Cambio de Contraseña" visible="#{usuario.vistaPopUp}"/>
+            </ice:panelGrid>
+        </f:facet>
+        <f:facet name="body">
+            <ice:panelBorder id="bordePopUp">
+                <f:facet name="center">
+                    <ice:panelGrid columns="2" visible="#{usuario.vistaPopUp}">
+                        <ice:outputLabel value="Contraseña Anterior: " for="contraseñaNueva"/>
+                        <ice:inputSecret id="contraseñaAnterior" value="#{usuario.contraseñaAnterior}" required="true" >
+                            <f:validateLength minimum="6" for="contraseñaAnterior" />
+                        </ice:inputSecret>
+                        <br />
+                        <ice:outputLabel value="Contraseña Nueva: " for="contraseñaNueva"/>
+                        <ice:inputSecret id="contraseñaNueva" value="#{usuario.contraseña}" required="true" >
+                            <f:validateLength minimum="6" for="contraseñaNueva" />
+                        </ice:inputSecret>
+                        <br />
+                        <h:message for="contraseñaNueva" styleClass="mensajesError" />
+                        <ice:outputLabel value="Confirme Contraseña: " for="contraseñaConfirmada"/>
+                        <ice:inputSecret id="contraseñaConfirmada" value="#{usuario.confirmacionContraseña}" required="true" >
+                            <f:validateLength minimum="6" for="contraseñaConfirmada" />
+                        </ice:inputSecret>
+                        <br />
+                        <h:message for="contraseñaConfirmada" styleClass="mensajesError" />
+                    </ice:panelGrid>
+                </f:facet>
+                <f:facet name="south">
+                    <ice:panelLayout layout="flow" styleClass="panelSur" visible="#{usuario.vistaPopUp}">
+                        <ice:commandButton value="Aceptar" styleClass="commandButtonChico" action="#{usuario.cambiarContraseñaAnterior()}" visible="#{usuario.vistaPopUp}"/>
+                        <ice:commandButton value="Cancelar" styleClass="commandButtonChico" action="#{usuario.cerrarPopUp}" visible="#{usuario.vistaPopUp}"/>
+                    </ice:panelLayout> 
+                </f:facet>
+            </ice:panelBorder>
+        </f:facet>
+    </ice:panelPopup>
+</html>

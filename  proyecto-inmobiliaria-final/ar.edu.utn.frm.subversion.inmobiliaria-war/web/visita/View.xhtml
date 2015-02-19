@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+    Document   : Create
+    Created on : 30-jun-2011, 17:00:26
+    Author     : Lisandro
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:icecore="http://www.icefaces.org/icefaces/core"
+      xmlns:ace="http://www.icefaces.org/icefaces/components"
+      xmlns:ice="http://www.icesoft.com/icefaces/component"
+      >
+    <h:body>
+        <ui:composition template="/WEB-INF/facelets/templates/commonLayout.xhtml">
+            <ui:define name="title">
+                <ice:outputText value="#{bundle.ViewVisitaTitle}"></ice:outputText>
+            </ui:define>
+            <ui:define name="content">
+                <f:view>
+                    <ice:panelGroup id="messagePanel" layout="block">
+                        <ice:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>                        
+                    </ice:panelGroup>
+                    <ice:form>
+                        <ice:panelGrid columns="2">
+                            <ice:outputText value="#{bundle.ViewVisitaLabel_idVisita}"/>
+                            <ice:outputText value="#{visitaController.selected.idVisita}" title="#{bundle.ViewVisitaTitle_idVisita}"/>
+                            <ice:outputText value="#{bundle.ViewVisitaLabel_nroVisita}"/>
+                            <ice:outputText value="#{visitaController.selected.nroVisita}" title="#{bundle.ViewVisitaTitle_nroVisita}"/>
+                            <ice:outputText value="#{bundle.ViewVisitaLabel_fecha}"/>
+                            <ice:outputText value="#{visitaController.selected.fecha}" title="#{bundle.ViewVisitaTitle_fecha}">
+                                <f:convertDateTime pattern="dd/MM/yyyy hh:mm" />
+                            </ice:outputText>
+                            <ice:outputText value="#{bundle.ViewVisitaLabel_duracion}"/>
+                            <ice:outputText value="#{visitaController.selected.duracion}" title="#{bundle.ViewVisitaTitle_duracion}"/>
+                            <ice:outputText value="#{bundle.ViewVisitaLabel_empleado}"/>
+                            <ice:outputText value="#{visitaController.selected.empleado}" title="#{bundle.ViewVisitaTitle_empleado}"/>
+                            <ice:outputText value="#{bundle.ViewVisitaLabel_inmueble}"/>
+                            <ice:outputText value="#{visitaController.selected.inmueble.direccion}" title="#{bundle.ViewVisitaTitle_inmueble}"/>
+                            <ice:outputText value="#{bundle.ViewVisitaLabel_contacto}"/>
+                            <ice:outputText value="#{visitaController.selected.usuario.apellidoNombre}" title="#{bundle.ViewVisitaTitle_contacto}"/>
+                            <ice:outputText value="#{bundle.ViewVisitaLabel_estadoVisita}"/>
+                            <ice:outputText value="#{visitaController.selected.estadoVisita}" title="#{bundle.ViewVisitaTitle_estadoVisita}"/>
+                        </ice:panelGrid>
+                        <br />
+                        <ice:commandButton action="#{visitaController.destroyAndView}" value="#{bundle.ViewVisitaDestroyLink}" styleClass="commandButton" />
+                        <br />
+                        <br />
+                        <ice:commandButton action="Edit" value="#{bundle.ViewVisitaEditLink}" styleClass="commandButton" />
+                        <br />
+                        <ice:commandButton action="#{visitaController.prepareCreate}" value="#{bundle.ViewVisitaCreateLink}"  styleClass="commandButton" />
+                        <br />
+                        <ice:commandButton action="#{visitaController.prepareList}" value="#{bundle.ViewVisitaShowAllLink}" styleClass="commandButton" />
+                        <br />
+                        <br />
+                        <ice:commandButton value="#{bundle.ViewVisitaIndexLink}" action="/index" immediate="true"  styleClass="commandButton" />
+                    </ice:form>
+                </f:view>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+    <h:outputStylesheet library="org.icefaces.component.skins" name="rime.css" />
+</html>
