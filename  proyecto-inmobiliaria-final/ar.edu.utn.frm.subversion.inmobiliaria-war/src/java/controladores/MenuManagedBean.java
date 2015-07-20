@@ -76,6 +76,7 @@ public class MenuManagedBean {
                 node.setTarget(elem.getNombre());
                 node.setValue(elem.getNombre());
                 node.setLink((elem.getVinculo() == null ? "" : elem.getVinculo()));
+                node.setTarget("_self");
                 subNivel = node;
             }
         } else {
